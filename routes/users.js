@@ -31,7 +31,6 @@ router.post('/login', function(req, res, next) {
     }
     return res.redirect("/");
   });
-  
 });
 
 router.get('/createuser', function(req, res, next) {
