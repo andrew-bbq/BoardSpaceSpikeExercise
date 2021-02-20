@@ -42,6 +42,12 @@ router.post('/createuser', function(req, res, next) {
     let userData = {
       username: req.body.username,
       password: req.body.password,
+      phone: req.body.phone,
+      address: req.body.address,
+      aptsuite: req.body.aptsuite,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip,
       role: User.schema.path('role').enumValues[1]
     };
   
