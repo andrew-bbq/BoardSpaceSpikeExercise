@@ -58,5 +58,9 @@ router.post('/createuser', function(req, res, next) {
   }
 });
   
+router.get('/customerAccount', function(req, res, next) {
+  res.render('customerAccount');
+});
+
 
 module.exports = router;
