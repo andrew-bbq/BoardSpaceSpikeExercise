@@ -6,3 +6,181 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+body {
+  background-color: #6aa84f;
+}
+
+.logo {
+  color: #FFF;
+  font-family: "Lobster", sans-serif;
+  font-size: 72px;
+  margin: auto;
+  width: 50%;
+  text-shadow: 0px 6px 4px #000;
+}
+
+.nav-button {
+  transition-duration: 0.4s;
+  background-color: Transparent;
+  border-color: Transparent;
+  font-family: "Nunito", sans-serif;
+  font-size: 25px;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.header1 {
+  color: #FFF;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.header2 {
+  color: #FFF;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.header3 {
+  color: #FFF;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.sub-header {
+  color: #666;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.menu-label {
+  font-family: "Bebas Neue", sans-serif;
+  color: #000;
+  font-size: 45;
+}
+
+.menu-price {
+  font-family: "Nunito", sans-serif;
+  color: #000;
+  font-size: 23;
+}
+
+.menu-description {
+  font-family: "Nunito", sans-serif;
+  color: #000;
+  font-size: 20;
+}
+
+.main-button {
+  background-color: #FFF;
+  color: #6aa84f;
+  border-color: Transparent;
+  font-family: "Nunito", sans-serif;
+  border-radius: 50px;
+  margin: auto;
+  margin-left: 6%;
+  width: 90%;
+  box-shadow: 0px 6px 4px #000;
+}
+
+.main-button:hover {
+  transition-duration: 0.4s;
+  background-color: #38761d;
+  color: #FFF;
+}
+
+.carousel-image {
+  box-shadow: 0px 6px 4px #000;
+  width: 500px;
+  height: 500px;
+  margin-top: 40px;
+}
+
+.box {
+  width: 82%;
+  padding: 10px;
+  background-color: #b6d7a8;
+  border-radius: 25px;
+  margin: auto;
+  margin-top: 3px;
+  box-shadow: 0px 6px 4px #000;
+}
+
+.field-label {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 20px;
+  padding-left: 2.7%;
+}
+
+.field {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 20px;
+  background-color: #6aa84f;
+  border-color: transparent;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  width: 95%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #FFF;
+}
+
+.pop-up {
+  width: 25%;
+  padding: 30px 30px 15px 10px;
+  background-color: #666;
+  border-radius: 25px;
+  margin: auto;
+  margin-top: 3px;
+  box-shadow: 0px 6px 4px #000;
+}
+
+.pop-up-field-label {
+  font-family: "Comfortaa", sans-serif;
+  color: #FFF;
+  font-size: 16px;
+  padding-left: 2.7%;
+}
+
+.pop-up-field {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 16px;
+  background-color: #d9ead3;
+  border-color: transparent;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  width: 95%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #274e13;
+}
+
+
+/* Source for shapes below: https://css-tricks.com/the-shapes-of-css/ */
+
+
+#triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-left: 100px solid #FFF;
+  border-bottom: 50px solid transparent;
+}
+
+
+#triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 100px solid #FFF;
+}
