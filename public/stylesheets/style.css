@@ -5,7 +5,6 @@ a {
 
 body {
   background-color: #6aa84f;
-  padding-top: 250px;
 }
 
 .logo {
@@ -20,7 +19,9 @@ body {
   background-color: #d9ead3; 
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 0;
   width: 100%;
+  box-shadow: 0px 2px 4px #000;
 } 
 
 .nav-button {
@@ -95,6 +96,7 @@ body {
   margin-left: 6%;
   width: 90%;
   box-shadow: 0px 6px 4px #000;
+  outline: none;
 }
 
 .main-button:hover {
