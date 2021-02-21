@@ -26,10 +26,6 @@
         display: block;
         position: relative;
       }
-      
-      /* ul li:hover {
-        background-color: #ada;
-      } */
 
       .priceDisplay {
         width: 100%;
@@ -148,12 +144,16 @@
 
     function updateTotal() { 
 
+    
+
       // Subtotal
       var subTotal = 0;
 
       for (var i = 0; i < myCart[0].length; i++) {
         subTotal += myCart[0][i]*myCart[2][i];
       }
+
+      removeChildNodes("subTotalDisplay");
 
       var subTotalText = document.createElement("span");
       subTotalText.innerHTML = "Subtotal:";
@@ -163,12 +163,14 @@
 
       var subTotalValue = document.createElement("span");
       subTotalValue.innerHTML = "$"+subTotal.toFixed(2);
-      subTotalValue.style = " position: absolute; right: 120px;";
+      subTotalValue.style = " position: absolute; right: 15%;";
 
       document.getElementById("subTotalDisplay").appendChild(subTotalValue);
 
       // Tax
       var tax = subTotal*SALES_TAX_RATE;
+
+      removeChildNodes("taxDisplay");
 
       var taxText = document.createElement("span");
       taxText.innerHTML = "Sales Tax:";
@@ -178,12 +180,14 @@
 
       var taxValue = document.createElement("span");
       taxValue.innerHTML = "$"+(tax).toFixed(2);
-      taxValue.style = " position: absolute; right: 120px;";
+      taxValue.style = " position: absolute; right: 15%;";
 
       document.getElementById("taxDisplay").appendChild(taxValue);
 
       // Tip
       var tip = subTotal*tipRate;
+      
+      removeChildNodes("tipDisplay");
 
       var tipText = document.createElement("span");
       tipText.innerHTML = "Tip:";
@@ -193,12 +197,14 @@
 
       var tipValue = document.createElement("span");
       tipValue.innerHTML = "$"+(tip).toFixed(2);
-      tipValue.style = " position: absolute; right: 120px;";
+      tipValue.style = " position: absolute; right: 15%;";
 
       document.getElementById("tipDisplay").appendChild(tipValue);
 
       // Total
       var total = subTotal+tax+tip;
+
+      removeChildNodes("totalDisplay");
 
       var totalText = document.createElement("span");
       totalText.innerHTML = "Total:";
@@ -208,7 +214,7 @@
 
       var totalValue = document.createElement("span");
       totalValue.innerHTML = "$"+(total).toFixed(2);
-      totalValue.style = " position: absolute; right: 120px;";
+      totalValue.style = " position: absolute; right: 15%;";
 
       document.getElementById("totalDisplay").appendChild(totalValue);
 
@@ -217,12 +223,23 @@
       placeOrderButton.innerHTML = "Place Order: $"+total.toFixed(2);
     }
 
-    var closeButtons = document.getElementsByClassName("close");
+    function removeChildNodes(id) {
+      const parent = document.getElementById(id);
+      while (parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+      }
+    }
 
-    /* Loop through the elements, and hide the parent, when clicked on */
+    var closeButtons = document.getElementsByClassName("close");
+    // remove cart items
     for (var i = 0; i < closeButtons.length; i++) {
       closeButtons[i].addEventListener("click", function() {
-        this.parentElement.style.display = 'none';
+        var listIndex = $( "li" ).index(this.parentElement);
+        this.parentElement.parentElement.removeChild(this.parentElement);
+        myCart[0].splice(listIndex,1);
+        myCart[1].splice(listIndex,1);
+        myCart[2].splice(listIndex,1);
+        updateTotal();
       });
     }
   </script>
