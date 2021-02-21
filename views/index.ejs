@@ -54,7 +54,7 @@
         </div>
     </div>
 
-
+    <% if (!user) { %>
       <div class="dropdown-right text-center" id="login">
         <button class="loginbtn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <svg class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -62,24 +62,20 @@
           </svg>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <form>
+            <form action="/users/login" method="POST">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <label for="username">Username:</label>
+                    <input class="form-control" name="username" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>
+      <% } %>
 
     </div>
     <!-- Bootstrap js links -->
