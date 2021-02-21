@@ -12,9 +12,6 @@ const url = require('url');
 /* GET home page. */
 router.get('/addmenuitem', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
-        if(!req.session.user) {
-            return res.redirect('/users/login');
-        }
         return res.redirect('/');
     }
     res.render('addmenuitem');
@@ -51,9 +48,6 @@ router.post('/addmenuitem', upload.single('image'), function(req, res, next) {
 
 router.get('/editmenu', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
-        if(!req.session.user) {
-            return res.redirect('/users/login');
-        }
         return res.redirect('/');
     }
     MenuItem.find({}, function(err, menuItems) {
@@ -63,9 +57,6 @@ router.get('/editmenu', function(req, res, next) {
 
 router.post('/editmenu', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
-        if(!req.session.user) {
-            return res.redirect('/users/login');
-        }
         return res.redirect('/');
     }
     if(req.body.action == "Edit"){
@@ -85,9 +76,6 @@ router.post('/editmenu', function(req, res, next) {
 
 router.get('/editmenuitem', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
-        if(!req.session.user) {
-            return res.redirect('/users/login');
-        }
         return res.redirect('/');
     }
     MenuItem.findOne({_id: req.query.toEdit}, function(err, menuItem){
@@ -101,9 +89,6 @@ router.get('/editmenuitem', function(req, res, next) {
 
 router.post('/editmenuitem', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
-        if(!req.session.user) {
-            return res.redirect('/users/login');
-        }
         return res.redirect('/');
     }
     MenuItem.findByIdAndUpdate(
