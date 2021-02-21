@@ -9,13 +9,8 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login', {err: req.query.err, username: req.query.username});
-});
-
 router.post('/login', function(req, res, next) {
   let errorMessage = "";
-  let tempUser;
   User.findOne({username: req.body.username}, function(err, user) {
     if (user) {
       if (user.password == req.body.password) {
@@ -27,7 +22,7 @@ router.post('/login', function(req, res, next) {
       errorMessage = "No account with username.";
     }
     if (errorMessage.length > 0) {
-      return res.redirect(url.format({pathname:"/users/login", query: {"err": errorMessage, "username" : req.body.username}}));
+      return res.redirect(url.format({pathname:"/", query: {"err": errorMessage, "username" : req.body.username}}));
     }
     return res.redirect("/");
   });

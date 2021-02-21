@@ -3,11 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  let welcomeMessage = "Welcome!";
+  let user;
   if(req.session.user) {
-    welcomeMessage = "Welcome, " + req.session.user.username + "!";
+    user = req.session.user;
   }
-  res.render('index', { title: welcomeMessage });
+  res.render('index', { username: req.query.username, err: req.query.err, user: user });
 });
 
 router.get('/userlist', function(req,res) {
