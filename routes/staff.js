@@ -19,6 +19,9 @@ router.get('/orderlist', function (req, res, next) {
 });
 
 router.get('/vieworder', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
+    }
     let orderId = req.query.order;
     Order.findOne({_id: orderId}, function(err, order) {
         if (err) {
@@ -52,20 +55,28 @@ router.get('/vieworder', function(req, res, next) {
     });
 });
 
-router.post('/ordermenu', function (req, res, next) {
-    if (!req.session.cart) {
-        req.session.cart = {};
+router.post('/vieworder', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
     }
-    itemId = req.body.itemId;
-    itemPrice = req.body.itemPrice;
-    itemName = req.body.itemName;
-    if (!req.session.cart[itemId]) {
-        let cartItem = { count: 1, name: itemName, price: itemPrice };
-        req.session.cart[itemId] = cartItem;
-    } else {
-        req.session.cart[itemId].count++;
+    Order.findByIdAndUpdate({_id: req.body.orderId}, {status: req.body.status}, function(err, order){
+        if (err){
+            return next(err);
+        }
+        return res.redirect(url.format({ pathname: "/staff/vieworder", query: { "order": req.body.orderId } }))
+    });
+});
+
+router.post('/orderlist', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
     }
-    return res.redirect('/order/ordermenu');
+    Order.findByIdAndUpdate({_id: req.body.orderId}, {status: req.body.status}, function(err, order){
+        if (err){
+            return next(err);
+        }
+        return res.redirect('/staff/orderlist')
+    });
 });
 
 module.exports = router;

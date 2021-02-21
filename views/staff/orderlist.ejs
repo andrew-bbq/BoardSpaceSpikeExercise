@@ -40,7 +40,7 @@
     </nav>
   </div>
   <div class="container" style="z-index: 0">
-    <div class="row">
+    <div class="row pt-2 mb-4">
       <div class="col-sm-9">
         <h1>Orders</h1>
       </div>
@@ -59,8 +59,18 @@
         <div class="col-sm-4">
             Status: <%= order.status %>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <a href="/staff/vieworder?order=<%=order.id%>">View Order</a>
+        </div>
+        <div class="col-sm-2">
+          <form action="/staff/orderlist" method="POST">
+            <input type="hidden" name="orderId" value="<%=order.id%>" />
+            Status: <select name="status" onchange="this.form.submit()">
+                <option value="preparing" <%= (order.status == 'preparing')? 'selected' : ''%>>Preparing</option>
+                <option value="delivering" <%= (order.status == 'delivering')? 'selected' : ''%>>Delivering</option>
+                <option value="complete" <%= (order.status == 'complete')? 'selected' : ''%>>Complete</option>
+            </select>
+        </form>
         </div>
     </div>
     <% }); %>
