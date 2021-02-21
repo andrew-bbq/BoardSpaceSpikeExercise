@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 const CreditCard = new Schema({
     userId: {
-      type: ObjectId,
+      type: mongoose.ObjectId,
       required: true
     },
     cardNumber: {
