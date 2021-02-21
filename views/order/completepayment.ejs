@@ -99,7 +99,8 @@
                     <% } %>
         </ul>
         <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
-            <div class="float-right mt-3" style="margin-right:5vw"><select class="form-control" onchange="document.getElementById('hiddenpickup').value = this.value"><option value="1">Pickup</option><option value="0">Delivery</option></select></div>
+            <div class="float-right mt-3" style="margin-right:5vw"><select class="form-control" onchange="document.getElementById('hiddenpickup').value = this.value; document.getElementById('car-input').style.display = (this.value =='1') ? 'block': 'hidden';"><option value="1">Pickup</option><option value="0">Delivery</option></select></div>
+            <div id="car-input" class="float-right mt-3" style="margin-right:5vw"><input class="form-control" onchange="document.getElementById('hiddencar').value = this.value" /></div>
             <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%=
                         (subtotal).toFixed(2); %></span></div>
             <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%=
@@ -114,6 +115,7 @@
 
     <div class="text-center align-center">
         <form action="/order/completepayment" method="POST">
+            <input type="hidden" id="hiddencar" name="car" value="" />
             <input type="hidden" id="hiddenpickup" name="pickup" value="1" />
             <input type="hidden" name="price" value="<%=(subtotal + salesTax + tip).toFixed(2)%>" />
             <input type="hidden" name="card" value="<%=card.id%>" />
