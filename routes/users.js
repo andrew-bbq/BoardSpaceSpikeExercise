@@ -11,25 +11,26 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
   res.render('login', {err: req.query.err, username: req.query.username});
-})
+});
 
 router.post('/login', function(req, res, next) {
-  let err = "";
+  let errorMessage = "";
+  let tempUser;
   User.findOne({username: req.body.username}, function(err, user) {
     if (user) {
       if (user.password == req.body.password) {
-        req.session.user = user.dataValues;
+        req.session.user = user;
       } else {
-        err = "Invalid password for account.";
+        errorMessage = "Invalid password for account.";
       }
     } else {
-      err = "No account with username.";
+      errorMessage = "No account with username.";
     }
+    if (errorMessage.length > 0) {
+      return res.redirect(url.format({pathname:"/users/login", query: {"err": errorMessage, "username" : req.body.username}}));
+    }
+    return res.redirect("/");
   });
-  if (err.length > 0) {
-    return res.redirect(url.format({pathname:"/users/login", query: {"err": err, "username" : req.body.username}}));
-  }
-  return res.redirect("/");
 });
 
 router.get('/createuser', function(req, res, next) {
@@ -41,6 +42,12 @@ router.post('/createuser', function(req, res, next) {
     let userData = {
       username: req.body.username,
       password: req.body.password,
+      phone: req.body.phone,
+      address: req.body.address,
+      aptsuite: req.body.aptsuite,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip,
       role: User.schema.path('role').enumValues[1]
     };
   
@@ -58,6 +65,10 @@ router.post('/createuser', function(req, res, next) {
   }
 });
   
+router.get('/customerAccount', function(req, res, next) {
+  res.render('customerAccount');
+});
+
 
 router.get('/cart', function(req, res, next) {
   res.render('cart', {err: req.query.err, username: req.query.username});
