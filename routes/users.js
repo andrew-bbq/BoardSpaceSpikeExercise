@@ -59,4 +59,12 @@ router.post('/createuser', function(req, res, next) {
 });
   
 
+router.get('/cart', function(req, res, next) {
+  res.render('cart', {err: req.query.err, username: req.query.username});
+})
+
+router.post('/cart', function(req, res, next) {
+});
+
+
 module.exports = router;
