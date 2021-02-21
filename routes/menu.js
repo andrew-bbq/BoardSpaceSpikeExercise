@@ -29,7 +29,8 @@ router.post('/addmenuitem', upload.single('image'), function(req, res, next) {
         image: {
             data: fs.readFileSync(path.join('uploads/' + req.file.filename)),
             contentType: req.file.mimetype
-        }
+        },
+        inStock: true
     };
     // add item to database
     MenuItem.create(itemData, (err, item) => {
