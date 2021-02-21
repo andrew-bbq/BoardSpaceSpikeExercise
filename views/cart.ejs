@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <style>
+
+      ul {
+        padding-left: 2%;
+        width: 96%;
+      }
+
+      ul li {
+        
+        border-bottom: 1px solid #000;
+        padding: 12px;
+        font-size: 18px;
+        display: block;
+        position: relative;
+      }
+      
+      /* ul li:hover {
+        background-color: #ada;
+      } */
+
+      .priceDisplay {
+        width: 100%;
+      }
+
+      .cartDiv {
+        border-radius: 20px;
+        border: 2px solid #000;
+        background-color: #dfd;
+        padding:0;
+      }
+
+      .close {
+        color: #aaa;
+
+        cursor: pointer;
+
+        position: absolute;
+        top: 50%;
+        right: 0%;
+        
+        padding: 6px 10px;
+        transform: translate(0%, -50%);
+      }
+      
+      .close:hover {
+        color: #000;
+      }
+
+      .placeOrder {
+        border-radius: 25px;
+        border: 2px solid #242;
+        padding: 12px;
+        font-size: 18px;
+        background-color: #efe;
+        position: absolute;
+        width: 80%;
+        right: 10%;
+
+        box-shadow: 0 4px #9b9;
+        outline: none;
+      }
+
+      .placeOrder:active {
+        background-color: #beb;
+        box-shadow: 0 1px #464;
+        transform: translateY(4px);
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="cartDiv">
+      <ul id="cartList">
+      </ul>
+      <div class="priceDisplay" id="subTotalDisplay"></div> 
+      <div class="priceDisplay" id="taxDisplay"></div> 
+      <div class="priceDisplay" id="tipDisplay"></div> 
+      <div class="priceDisplay" id="totalDisplay"></div> 
+      <br/>
+    </div>
+    <br/>
+    <button id="orderButton" class="placeOrder"></button>
+
+  </body>
+  <script>
+    // globals 
+
+    var myCart = [[1,1,2], ["Chicken Tenders","Mac and Cheese","Cheese Curds"],[8.95,7.95,4.95]];
+    const SALES_TAX_RATE = 0.05;
+    var tipRate = 0.15;
+
+
+    window.onload = initCart();
+
+    function initCart() {
+      for (var i = 0; i < myCart[0].length; i++) {
+        addCartItem(myCart[0][i], myCart[1][i],myCart[2][i]);
+      }
+
+      updateTotal();
+    }
+
+    function addCartItem(itemQuantity, itemName, itemPrice) {
+      var cartItem = document.createElement("li");
+
+      var name = document.createTextNode(itemQuantity + "x " + itemName);
+
+      cartItem.appendChild(name);
+
+      var price = document.createElement("span");
+      price.innerHTML = "$"+itemPrice;
+      price.style = " position: absolute; right: 40px;";
+
+      cartItem.appendChild(price);
+
+      var closeButton = document.createElement("span");
+      closeButton.innerHTML = "x";
+      closeButton.className = "close";
+
+      cartItem.appendChild(closeButton);
+
+      document.getElementById("cartList").appendChild(cartItem);
+    }
+
+    function updateTotal() { 
+
+      // Subtotal
+      var subTotal = 0;
+
+      for (var i = 0; i < myCart[0].length; i++) {
+        subTotal += myCart[0][i]*myCart[2][i];
+      }
+
+      var subTotalText = document.createElement("span");
+      subTotalText.innerHTML = "Subtotal:";
+      subTotalText.style = " position: relative; left: 3%;"
+      
+      document.getElementById("subTotalDisplay").appendChild(subTotalText);
+
+      var subTotalValue = document.createElement("span");
+      subTotalValue.innerHTML = "$"+subTotal.toFixed(2);
+      subTotalValue.style = " position: absolute; right: 120px;";
+
+      document.getElementById("subTotalDisplay").appendChild(subTotalValue);
+
+      // Tax
+      var tax = subTotal*SALES_TAX_RATE;
+
+      var taxText = document.createElement("span");
+      taxText.innerHTML = "Sales Tax:";
+      taxText.style = " position: relative; left: 3%;"
+      
+      document.getElementById("taxDisplay").appendChild(taxText);
+
+      var taxValue = document.createElement("span");
+      taxValue.innerHTML = "$"+(tax).toFixed(2);
+      taxValue.style = " position: absolute; right: 120px;";
+
+      document.getElementById("taxDisplay").appendChild(taxValue);
+
+      // Tip
+      var tip = subTotal*tipRate;
+
+      var tipText = document.createElement("span");
+      tipText.innerHTML = "Tip:";
+      tipText.style = " position: relative; left: 3%;"
+      
+      document.getElementById("tipDisplay").appendChild(tipText);
+
+      var tipValue = document.createElement("span");
+      tipValue.innerHTML = "$"+(tip).toFixed(2);
+      tipValue.style = " position: absolute; right: 120px;";
+
+      document.getElementById("tipDisplay").appendChild(tipValue);
+
+      // Total
+      var total = subTotal+tax+tip;
+
+      var totalText = document.createElement("span");
+      totalText.innerHTML = "Total:";
+      totalText.style = " position: relative; left: 3%;"
+      
+      document.getElementById("totalDisplay").appendChild(totalText);
+
+      var totalValue = document.createElement("span");
+      totalValue.innerHTML = "$"+(total).toFixed(2);
+      totalValue.style = " position: absolute; right: 120px;";
+
+      document.getElementById("totalDisplay").appendChild(totalValue);
+
+      // Place Order Button
+      var placeOrderButton = document.getElementById("orderButton");
+      placeOrderButton.innerHTML = "Place Order: $"+total.toFixed(2);
+    }
+
+    var closeButtons = document.getElementsByClassName("close");
+
+    /* Loop through the elements, and hide the parent, when clicked on */
+    for (var i = 0; i < closeButtons.length; i++) {
+      closeButtons[i].addEventListener("click", function() {
+        this.parentElement.style.display = 'none';
+      });
+    }
+  </script>
+  <script src="/javascripts/global.js"></script>
+</html>
