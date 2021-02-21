@@ -24,6 +24,10 @@ const Order = new Schema({
   time: {
     type: Date,
     required: true
+  },
+  pickup: {
+    type: Boolean,
+    required: true
   }
 });
 

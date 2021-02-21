@@ -55,6 +55,7 @@ router.get('/vieworder', function(req, res, next) {
     });
 });
 
+// handle status updates
 router.post('/vieworder', function(req, res, next) {
     if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
         return res.redirect('/');
@@ -67,6 +68,7 @@ router.post('/vieworder', function(req, res, next) {
     });
 });
 
+// handle status updates
 router.post('/orderlist', function(req, res, next) {
     if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
         return res.redirect('/');

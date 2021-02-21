@@ -81,6 +81,11 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
+            Deliver to: <%=orderUser.address%> <%=orderUser.aptsuite?orderUser.aptsuite+", ":", "%><%=orderUser.city%>, <%=orderUser.state%>, <%=orderUser.zip%> (Phone: <%=orderUser.phone%>)
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
             Order placed at <%= order.time %>
         </div>
       </div>

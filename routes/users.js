@@ -56,6 +56,7 @@ router.post('/createuser', function(req, res, next) {
       if (err) {
         return next(err)
       } else {
+        req.session.user = user;
         return res.redirect('/');
       }
     });
