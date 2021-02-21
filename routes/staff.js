@@ -8,6 +8,11 @@ const CreditCard = mongoose.model('CreditCard');
 const Order = mongoose.model('Order');
 const url = require('url');
 
+router.use(function(req, res, next) {
+    res.locals.currentUser = req.session.user ? req.session.user : undefined;
+    next();
+});
+
 router.get('/orderlist', function (req, res, next) {
     // only admins and staff can view this page
     if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {

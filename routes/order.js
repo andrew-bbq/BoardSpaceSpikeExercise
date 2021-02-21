@@ -8,6 +8,11 @@ const CreditCard = mongoose.model('CreditCard');
 const Order = mongoose.model('Order');
 const url = require('url');
 
+router.use(function(req, res, next) {
+    res.locals.currentUser = req.session.user ? req.session.user : undefined;
+    next();
+});
+
 router.get('/', function (req, res, next) {
     if (req.session.user) {
         return res.redirect('/order/ordermenu');
