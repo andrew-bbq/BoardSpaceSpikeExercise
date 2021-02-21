@@ -20,6 +20,10 @@ const MenuItem = new Schema({
     image: {
         data: Buffer,
         contentType: String
+    },
+    inStock: {
+      type: Boolean,
+      required: true
     }
 });
 
