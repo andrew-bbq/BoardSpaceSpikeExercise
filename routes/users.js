@@ -69,6 +69,10 @@ router.get('/customerAccount', function(req, res, next) {
   res.render('customerAccount');
 });
 
+router.get('/signup', function(req, res, next) {
+  res.render('signup');
+});
+
 
 router.get('/cart', function(req, res, next) {
   res.render('cart', {err: req.query.err, username: req.query.username});

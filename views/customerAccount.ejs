@@ -90,11 +90,16 @@
                     <div class="pull-right" style="width: 20%" ><button class="main-button float-right" type="button">Update</button></div>
                 </div>
         
-                <label class="field-label text-left" for="fname2">Address Line 1</label>
-                <input class="field" type="text" name="fname">
-                
-                <label class="field-label text-left" for="fname3">Address Line 2</label>
-                <input class="field" type="text" name="fname">
+                <label class="field-label text-left" for="address">Address: </label>
+                <input class="field" name="address" required />
+                <label class="field-label text-left" for="aptsuite">Apartment, suite, etc: </label>
+                <input class="field" name="aptsuite" />
+                <label class="field-label text-left" for="city">City: </label>
+                <input class="field" name="city" required />
+                <label class="field-label text-left" for="state">State/Province: </label>
+                <input class="field" name="state" required />
+                <label class="field-label text-left" for="zip">Zip: </label>
+                <input class="field" name="zip" type="number" required />
             </div>
         </form>
     </div>
