@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cart</title>
+    <title>Complete Payment</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -76,7 +76,7 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="/order/">Menu</a>
-            <a class="nav-item nav-link disabled" href="#">Cart</a>
+            <a class="nav-item nav-link" href="/users/cart">Cart</a>
             <a class="nav-item nav-link" href="/users/customerAccount">Account</a>
           </div>
         </div>
@@ -88,10 +88,8 @@
         <% let subtotal = 0 %>
         <% for (let itemId in cart) { console.log(itemId); %>
           <li>
-            <form action="/users/cart" method="POST">
             <% let tempPrice = cart[itemId].price * cart[itemId].count; subtotal += tempPrice; %>
-            <%=cart[itemId].count%>x <%=cart[itemId].name%> <span style="position: absolute; right: 40px;">$<%=tempPrice.toFixed(2)%>  <input type="hidden" name="itemId" value="<%=itemId%>" />
-              <input type="submit" value="X" /></span>
+            <%=cart[itemId].count%>x <%=cart[itemId].name%> <span style="position: absolute; right: 40px;">$<%=tempPrice.toFixed(2)%> 
             </form>
           </li>
         <% } %>
@@ -100,7 +98,7 @@
         let salesTax = subtotal * 0.05;
         let tip = subtotal*0.15;
       %>
-      <% if (subtotal > 0) { %><div class="float-right"><form action="/order/startorder" method="POST"><input type="submit" class="text-center" style="margin-right: 5.5vw; margin-top: 35px;" value="Place Order"/></form></div> <% } %>
+      <div class="float-right"><form action="/order/completepayment" method="POST"><input type="submit" class="text-center" style="margin-right: 5.5vw; margin-top: 35px;" value="Confirm Order"/></form></div>
       <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%= (subtotal).toFixed(2); %></span></div> 
       <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%= (salesTax).toFixed(2); %></span></div> 
       <div class="priceDisplay" id="tipDisplay"><span style="position: relative; left: 3%;">Forced Tip: $<%= (tip).toFixed(2); %></span></div> 
@@ -108,7 +106,7 @@
       <br/>
     </div>
     <br/>
-    <button id="orderButton" class="main-button"></button>
+    <button id="orderButton" class="main-button">Place Order</button>
 
     
     <!-- Bootstrap js links -->

@@ -6,6 +6,7 @@ let db =  mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 require("./models/user.model");
 require("./models/menuitem.model");
+require("./models/creditcard.model");
 
 var createError = require('http-errors');
 var express = require('express');
@@ -26,7 +27,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    expires: 600000
+    expires: 1200000
   }
 }));
 
