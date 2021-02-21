@@ -42,8 +42,27 @@
       </div>
       <div class="row">
           <div class="col-sm-12">
-              Paid for with card ending in <%=cardNumber%>
+              <ul>
+            <% menuItems.forEach(function(menuItem) { %>
+                <li><%= menuItem.count %>x <%=menuItem.name%></li>
+            <% }); %>
+            </ul>
           </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12">
+              $<%=order.price%> paid for with card ending in <%=cardNumber%>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            Status: <%= order.status %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            Order placed at <%= order.time %>
+        </div>
       </div>
   </div>
 </body>

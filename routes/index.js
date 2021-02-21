@@ -20,11 +20,11 @@ router.get('/userlist', function(req,res) {
   });
 });
 
-router.post('/', function(res,req, next) {
+router.post('/', function(req,res, next) {
   if(req.body.action == "Logout"){
     // go to home and remove user from session
     delete(req.session.user);
-    return res.redirect(url.format({pathname:"/", query: {toEdit: req.body.toEdit}}));
+    return res.redirect("/");
   }
 })
 

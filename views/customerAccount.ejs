@@ -39,32 +39,32 @@
 
     <!-- Account update forms -->
     <div style="margin-top:13%;">
-        <form style="margin: 0px;">
+        <form style="margin: 0px;" method="POST" action="/users/updateusername">
             <div class="box" style="margin-top: 20px;">
                 <div class="row">
                     <div class="sub-header float-left" style="width: 77%">Change Username</div>
 
-                    <div class="float-right" style="width: 20%" ><button class="main-button" type="button">Update</button></div>
+                    <div class="float-right" style="width: 20%" ><input class="main-button" type="submit" value="Update" /></div>
                 </div>
 
                 <label class="field-label" for="newUsername text-left">New Username</label>
-                <input class="field" type="text" name="newUsername">
+                <input class="field" type="text" name="newUsername" value="<%=user.username%>">
             </div>
         </form>
 
-        <form style="margin: 0px;">
+        <form style="margin: 0px;" method="POST" action="/users/updatepassword">
             <div class="box" style="margin-top: 20px;">
                 <div class="row">
                     <div class="sub-header float-left" style="width: 74%">Change Password</div>
         
-                    <div class="pull-right" style="width: 20%"><button class="main-button float-right" type="button">Update</button></div>
+                    <div class="pull-right" style="width: 20%"><input class="main-button float-right" type="submit" value="Update"/></div>
                 </div>
         
                 <label class="field-label text-left" for="newPassword">Password</label>
-                <input class="field" type="text" name="newPassword">
+                <input class="field" type="text" name="newPassword" />
                 
                 <label class="field-label text-left" for="confirmPassword">Update</label>
-                <input class="field" type="text" name="confirmPassword">
+                <input class="field" type="text" name="confirmPassword" />
             </div>
         </form>
 
