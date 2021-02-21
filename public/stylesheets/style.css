@@ -74,7 +74,7 @@ body {
 
 .menu-label {
   font-family: "Bebas Neue", sans-serif;
-  color: #000;
+  color: #333;
   font-size: 2.4vw;
   margin-top: 0.6em;
   margin-left: 1vw;
@@ -82,7 +82,7 @@ body {
 
 .menu-price {
   font-family: "Nunito", sans-serif;
-  color: #000;
+  color: #333;
   font-size: 2.2vw;
   margin-top: 0.6em;
   margin-left: 1vw;
@@ -178,7 +178,7 @@ body {
   width: 25%;
   padding: 30px 30px 15px 10px;
   background-color: #666;
-  border-radius: 25px;
+  border-radius: 10px;
   margin: auto;
   margin-top: 3px;
   box-shadow: 0px 6px 4px #000;
@@ -204,6 +204,19 @@ body {
   color: #274e13;
 }
 
+.logout-button {
+  color: #FFF;
+  background-color: #e06666;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1vw;
+}
+
+.logout-button:hover {
+  color: #FFF;
+  background-color: #e06666;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1vw;
+}
 
 .topbar {
   position:fixed;
@@ -232,7 +245,24 @@ body {
   background-color: #fbfff6;
 }
 
+.account-button {
+  color: #6aa84f; 
+  margin-top: 17%;
+}
 
+.account-button-bkg {
+  font-size:1vw; 
+  background-color: #FFF; 
+  width: 3vw; 
+  height: 3vw; 
+  margin-left: 2vw;
+  box-shadow: 0px 6px 4px #000;
+  outline: none;
+}
+
+.account-button-bkg:focus {
+  outline: none;
+}
 
 
 
