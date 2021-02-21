@@ -12,13 +12,31 @@
     <h1>Create new account</h1>
     <form action="/users/createuser" method="post">
         <label for="username">Username: </label>
-        <input name="username" type="text" value="<%= username %>"/>
+        <input name="username" type="text" value="<%= username %>" required/>
+        <br/>
+        <label for="phone">Phone Number: </label>
+        <input name="phone" type="tel" required/>
+        <br/>
+        <label for="address">Address: </label>
+        <input name="address" required/>
+        <br/>
+        <label for="aptsuite">Apartment, suite, etc: </label>
+        <input name="aptsuite"/>
+        <br/>
+        <label for="city">City: </label>
+        <input name="city" required/>
+        <br/>
+        <label for="state">State/Province: </label>
+        <input name="state" required/>
+        <br/>
+        <label for="zip">Zip: </label>
+        <input name="zip" type="number" required/>
         <br/>
         <label for="password">Password: </label>
-        <input name="password" type="password" />
+        <input name="password" type="password" required/>
         <br/>
         <label for="passwordConf">Confirm Password:</label>
-        <input name="passwordConf" type="password" />
+        <input name="passwordConf" type="password" required/>
         <br/>
         <input type="submit" value="Create" />
     </form>
