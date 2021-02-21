@@ -207,16 +207,32 @@ body {
 .logout-button {
   color: #FFF;
   background-color: #e06666;
+  outline: none;
   font-family: "Comfortaa", sans-serif;
   font-size: 1vw;
+  border-radius: 15px;
+  width: 80%;
+  margin-bottom: 1vw;
+  transition-duration: 0.4s;
+  box-shadow: 0px 6px 4px #000;
 }
 
 .logout-button:hover {
   color: #FFF;
+  outline: none;
   background-color: #e06666;
   font-family: "Comfortaa", sans-serif;
   font-size: 1vw;
 }
+
+.logout-button:active {
+  background-color: #e06666;
+  outline: none;
+  transition-duration: 0.4s;
+  box-shadow: 0px 0px 0px #000;
+}
+
+.container > .dropdown-menu { background-color: #666; }
 
 .topbar {
   position:fixed;
