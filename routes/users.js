@@ -103,4 +103,63 @@ router.post('/updateusername', function(req, res, next) {
 });
 
 
+router.post('/updatepassword', function(req, res, next) {
+  let pass = req.body.newPassword;
+  let confPass = req.body.confirmPassword;
+  if (pass != confPass) {
+    return res.redirect('/users/customeraccount');
+  }
+  User.findByIdAndUpdate({_id: req.session.user._id}, {password: pass}, function(err, user){
+    if (err) {
+      next(err);
+    }
+    // update session
+    User.findOne({_id: user._id}, function(err, user2){
+      if (err) {
+        next(err);
+      }
+      req.session.user = user2;
+      return res.redirect('/users/customeraccount');
+    });
+  });
+});
+
+router.post('/updatephone', function(req, res, next) {
+  let newPhone = req.body.newPhone;
+  User.findByIdAndUpdate({_id: req.session.user._id}, {phone: newPhone}, function(err, user){
+    if (err) {
+      next(err);
+    }
+    // update session
+    User.findOne({_id: user._id}, function(err, user2){
+      if (err) {
+        next(err);
+      }
+      req.session.user = user2;
+      return res.redirect('/users/customeraccount');
+    });
+  });
+});
+
+router.post('/updateaddress', function(req, res, next) {
+  let address = req.body.address;
+  let aptsuite = req.body.aptsuite;
+  let city = req.body.city;
+  let state = req.body.state;
+  let zip = req.body.zip;
+  User.findByIdAndUpdate({_id: req.session.user._id}, {address: address, aptsuite: aptsuite, city: city, state: state, zip: zip}, function(err, user){
+    if (err) {
+      next(err);
+    }
+    // update session
+    User.findOne({_id: user._id}, function(err, user2){
+      if (err) {
+        next(err);
+      }
+      req.session.user = user2;
+      return res.redirect('/users/customeraccount');
+    });
+  });
+});
+
 module.exports = router;
