@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
+  if (req.session.user) {
+    return res.redirect('/');
+  }
   res.render('login', {err: req.query.err, username: req.query.username});
 });
 
