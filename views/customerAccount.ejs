@@ -61,44 +61,44 @@
                 </div>
         
                 <label class="field-label text-left" for="newPassword">Password</label>
-                <input class="field" type="text" name="newPassword" />
+                <input class="field" type="password" name="newPassword" />
                 
                 <label class="field-label text-left" for="confirmPassword">Update</label>
-                <input class="field" type="text" name="confirmPassword" />
+                <input class="field" type="password" name="confirmPassword" />
             </div>
         </form>
 
-        <form style="margin: 0px;">
+        <form style="margin: 0px;" method="POST" action="/users/updatephone">
             <div class="box" style="margin-top: 20px;">
                 <div class="row">
                     <div class="sub-header float-left" style="width: 74%">Change Phone Number</div>
         
-                    <div class="pull-right" style="width: 20%" ><button class="main-button float-right" type="button">Update</button></div>
+                    <div class="pull-right" style="width: 20%" ><input class="main-button float-right" type="submit" value="Update" /></div>
                 </div>
         
-                <label class="field-label text-left" for="newPhoneNumber">New Phone Number</label>
-                <input class="field" type="text" name="newPhoneNumber">
+                <label class="field-label text-left" for="newPhone">New Phone Number</label>
+                <input class="field" type="tel" name="newPhone" value="<%=user.phone%>">
             </div>
         </form>
 
-        <form style="margin: 0px;">
+        <form style="margin: 0px;" method="POST" action="/users/updateaddress">
             <div class="box" style="margin-top: 20px;">
                 <div class="row">
                     <div class="sub-header float-left" style="width: 74%">Change Address</div>
         
-                    <div class="pull-right" style="width: 20%" ><button class="main-button float-right" type="button">Update</button></div>
+                    <div class="pull-right" style="width: 20%" ><button class="main-button float-right" type="submit">Update</button></div>
                 </div>
         
                 <label class="field-label text-left" for="address">Address: </label>
-                <input class="field" name="address" required />
+                <input class="field" name="address" value="<%=user.address%>" required />
                 <label class="field-label text-left" for="aptsuite">Apartment, suite, etc: </label>
-                <input class="field" name="aptsuite" />
+                <input class="field" name="aptsuite" value="<%=user.aptsuite%>" />
                 <label class="field-label text-left" for="city">City: </label>
-                <input class="field" name="city" required />
+                <input class="field" name="city" value="<%=user.city%>" required />
                 <label class="field-label text-left" for="state">State/Province: </label>
-                <input class="field" name="state" required />
+                <input class="field" name="state" value="<%=user.state%>" required />
                 <label class="field-label text-left" for="zip">Zip: </label>
-                <input class="field" name="zip" type="number" required />
+                <input class="field" name="zip" type="number" value="<%=user.zip%>" required />
             </div>
         </form>
     </div>
