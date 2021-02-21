@@ -5,13 +5,13 @@ a {
 
 body {
   background-color: #6aa84f;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .logo {
   color: #FFF;
   font-family: "Lobster", sans-serif;
-  font-size: 8vw;
+  font-size: 5vw;
   margin-bottom: .2em;
   text-shadow: 0px 6px 4px #000;
 }
@@ -31,9 +31,9 @@ body {
   background-color: Transparent;
   border-color: Transparent;
   font-family: "Nunito", sans-serif;
-  font-size: 2vw;
-  margin-left: 1em;
-  margin-right: 1em;
+  font-size: 1.2vw;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
 .nav-button:hover {
@@ -45,29 +45,29 @@ body {
   color: #FFF;
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 7vw;
+  font-size: 5vw;
 }
 
 .header2 {
   color: #FFF;
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 5vw;
+  font-size: 3vw;
 }
 
 .header3 {
   color: #FFF;
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 4vw;
+  font-size: 2vw;
 }
 
 .sub-header {
   color: #666;
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 4vw;
-  margin-left: 6%;
+  font-size: 2vw;
+  margin-left: 3%;
 }
 
 .menu-label {
@@ -93,7 +93,7 @@ body {
   color: #6aa84f;
   border-color: Transparent;
   font-family: "Nunito", sans-serif;
-  font-size: 2vw;
+  font-size: 1.5vw;
   border-radius: 50px;
   margin: auto;
   /* margin-left: 6%; */
@@ -127,13 +127,13 @@ body {
 
 .field-label {
   font-family: "Comfortaa", sans-serif;
-  font-size: 2vw;
+  font-size: 1vw;
   padding-left: 2.7%;
 }
 
 .field {
   font-family: "Comfortaa", sans-serif;
-  font-size: 2vw;
+  font-size: 1vw;
   background-color: #6aa84f;
   border-color: transparent;
   margin-left: 2.5%;
