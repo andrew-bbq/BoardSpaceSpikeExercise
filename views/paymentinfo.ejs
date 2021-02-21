@@ -41,37 +41,40 @@
 
 
   <div class="container">
-    <div class="row text-center">
+    <div class="text-center">
       <h1 class="header2 text-center">Payment Methods</h1>
     </div>
-    <div class="row box" width="90%">
+    <div class="row box text-center" width="90%">
       <ul>
         <% cards.forEach(function(card) { %>
 
-          <div class="row text-center">
-            <li class="card-info mb-4 ">
-              Card ending in <%= card.cardNumber%10000 %>
-            </li>
-            <div class="float-right ml-4">
-              <form action="/order/cardsubmit" method="POST">
-                <input type="hidden" value="<%= card.id %>" name="toUse" />
-                <div class="row">
-                  <div class="col-6"width="60vw">
-                    <input class="signup-button" name="action" type="submit" value="Use this card" />
+              
+            <div class="row text-center">
+              <div class="d-flex justify-content-between">
+              <li class="card-info mb-4 ">
+                Card ending in <%= card.cardNumber%10000 %>
+              </li>
+              <div class="float-right ml-4">
+                <form action="/order/cardsubmit" method="POST">
+                  <input type="hidden" value="<%= card.id %>" name="toUse" />
+                  <div class="row">
+                    <div class="col-6"width="60vw">
+                      <input class="signup-button" name="action" type="submit" value="Use this card" />
+                    </div>
+                    <div class="col-6" width="60vw">
+                      <input class="logout-button" name="action" type="submit" value="Delete" />
+                    </div>
                   </div>
-                  <div class="col-6" width="60vw">
-                    <input class="logout-button" name="action" type="submit" value="Delete" />
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
+        </div>
           <% }); %>
       </ul>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <div class="text-center" width="90%">
+        <div class="text-center mb-2 mt-3" width="90%">
           <a class="main-button" href="/order/addpaymentmethod">Add New Payment Method</a>
         </div>
       </div>
