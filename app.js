@@ -7,6 +7,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 require("./models/user.model");
 require("./models/menuitem.model");
 require("./models/creditcard.model");
+require("./models/order.model");
 
 var createError = require('http-errors');
 var express = require('express');
