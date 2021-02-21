@@ -134,6 +134,7 @@ router.post('/completepayment', function (req, res, next) {
         if (err) {
             return next(err);
         } else {
+            delete(req.session.cart);
             return res.redirect(url.format({ pathname: "/order/trackorder", query: { "order": order.id } }));
         }
     });
@@ -148,9 +149,17 @@ router.get("/trackorder", function(req, res, next) {
         MenuItem.find({
             '_id': {$in: menuIds}},
             function(err, menuItems) {
+                let cartDescription = [];
+                for (let menuId in order.menuItems) {
+                    menuItems.forEach(function(menuItem) {
+                        if (menuId == menuItem.id) {
+                            cartDescription.push({name: menuItem.name, count: order.menuItems[menuId]});
+                        }
+                    });
+                }
                 CreditCard.findOne({
                     '_id': order.cardId}, function(err, card){
-                        res.render("trackorder", { order: order, menuItems: menuItems, cardNumber:(Number(card.cardNumber)%10000) });
+                        res.render("trackorder", { order: order, menuItems: cartDescription, cardNumber:(Number(card.cardNumber)%10000) });
                 });
         });
     });

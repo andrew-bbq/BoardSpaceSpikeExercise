@@ -63,7 +63,7 @@ router.post('/createuser', function(req, res, next) {
 });
   
 router.get('/customerAccount', function(req, res, next) {
-  res.render('customerAccount');
+  res.render('customerAccount', {user: req.session.user});
 });
 
 router.get('/signup', function(req, res, next) {
@@ -80,6 +80,13 @@ router.post('/cart', function(req, res, next) {
   let itemId = req.body.itemId;
   delete(req.session.cart[itemId]);
   return res.redirect('/users/cart');
+});
+
+router.post('/updateusername', function(req, res, next) {
+  let newUsername = req.body.newUsername;
+  User.findByIdAndUpdate({_id: req.session.user._id}, {username: newUsername}, function(err, user){
+    console.log(user);
+  });
 });
 
 
