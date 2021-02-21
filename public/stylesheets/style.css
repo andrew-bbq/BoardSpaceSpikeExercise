@@ -270,7 +270,7 @@ li {
 .container > .dropdown-menu { background-color: #666; }
 
 .topbar {
-  position:fixed;
+  
   width:100%;
   background-color:#6aa84f;
   top:0;
