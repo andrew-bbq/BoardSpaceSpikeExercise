@@ -120,6 +120,7 @@ router.post('/completepayment', function (req, res, next) {
     const price = req.body.price;
     const cardId = req.body.card;
     const userId = req.session.user._id;
+    const pickup = req.body.pickup == 1;
     let menuItems = {};
     for (let itemId in req.session.cart) {
         menuItems[itemId] = req.session.cart[itemId].count;
@@ -128,6 +129,7 @@ router.post('/completepayment', function (req, res, next) {
         userId: userId,
         cardId: cardId,
         price: price,
+        pickup: pickup,
         menuItems: menuItems,
         status: Order.schema.path('status').enumValues[0],
         time: Date.now()

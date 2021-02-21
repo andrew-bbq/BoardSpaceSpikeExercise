@@ -81,7 +81,11 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-            Deliver to: <%=orderUser.address%> <%=orderUser.aptsuite?orderUser.aptsuite+", ":", "%><%=orderUser.city%>, <%=orderUser.state%>, <%=orderUser.zip%> (Phone: <%=orderUser.phone%>)
+            <% if (!order.pickup) { %>
+              Deliver to: <%=orderUser.address%> <%=orderUser.aptsuite?orderUser.aptsuite+", ":", "%><%=orderUser.city%>, <%=orderUser.state%>, <%=orderUser.zip%> (Phone: <%=orderUser.phone%>)
+            <% } else { %>
+              Will pick up in {CAR INFO GOES HERE}
+            <% } %>
         </div>
       </div>
       <div class="row">
