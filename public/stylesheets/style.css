@@ -8,6 +8,16 @@ body {
   margin-top: 10%;
 }
 
+li {
+  list-style: none;
+ }
+
+.card-info {
+  color: #000;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.3vw;
+}
+
 .logo {
   color: #FFF;
   font-family: "Lobster", sans-serif;
@@ -103,7 +113,6 @@ body {
   font-size: 1.5vw;
   border-radius: 50px;
   margin: auto;
-  /* margin-left: 6%; */
   width: 82%;
   box-shadow: 0px 6px 4px #000;
   outline: none;
@@ -123,7 +132,7 @@ body {
 }
                                                                                                                                                                                                                                                                                                                                                                                                   
 .box {
-  width: 82%;
+  width: 90%;
   padding: 10px;
   background-color: #d9ead3;
   border-radius: 25px;
@@ -209,12 +218,29 @@ body {
   background-color: #e06666;
   outline: none;
   font-family: "Comfortaa", sans-serif;
+  border-color: Transparent;
   font-size: 1vw;
   border-radius: 15px;
-  width: 80%;
+  margin-left: 2.5%;
+  width: 95%;
   margin-bottom: 1vw;
   transition-duration: 0.4s;
   box-shadow: 0px 6px 4px #000;
+  outline: none;
+}
+
+.signup-button {
+  font-family: "Comfortaa", sans-serif;
+  background-color: #68a9df;
+  color: #FFF;
+  border-color: Transparent;
+  font-size: 1vw;
+  border-radius: 15px;
+  margin-left: 2.5%;
+  width: 95%;
+  margin-bottom: 1vw;
+  box-shadow: 0px 6px 4px #000;
+  outline: none;
 }
 
 .logout-button:hover {
@@ -223,9 +249,16 @@ body {
   background-color: #e06666;
   font-family: "Comfortaa", sans-serif;
   font-size: 1vw;
+  border-color: Transparent;
 }
 
-.logout-button:active {
+.signup-button:hover {
+  background-color: #68a9df;
+  color: #FFF;
+  border-color: Transparent;
+}
+
+.logout-button:focus {
   background-color: #e06666;
   outline: none;
   transition-duration: 0.4s;

@@ -37,32 +37,42 @@
     </div>
   </nav>
 
+
+
+
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <h1>Payment Methods</h1>
-      </div>
+    <div class="row text-center">
+      <h1 class="header2 text-center">Payment Methods</h1>
     </div>
-    <div class="row">
+    <div class="row box" width="90%">
       <ul>
         <% cards.forEach(function(card) { %>
-          <li>
-            Card ending in <%= card.cardNumber%10000 %>
-              <div class="float-right ml-3">
-                <form action="/order/cardsubmit" method="POST">
-                  <input type="hidden" value="<%= card.id %>" name="toUse" />
-                  <input name="action" type="submit" value="Use this card" />
-                  <input name="action" type="submit" value="Delete" />
-                </form>
-              </div>
-          </li>
+
+          <div class="row text-center">
+            <li class="card-info mb-4 ">
+              Card ending in <%= card.cardNumber%10000 %>
+            </li>
+            <div class="float-right ml-4">
+              <form action="/order/cardsubmit" method="POST">
+                <input type="hidden" value="<%= card.id %>" name="toUse" />
+                <div class="row">
+                  <div class="col-6"width="60vw">
+                    <input class="signup-button" name="action" type="submit" value="Use this card" />
+                  </div>
+                  <div class="col-6" width="60vw">
+                    <input class="logout-button" name="action" type="submit" value="Delete" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
           <% }); %>
       </ul>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <div class="text-center">
-          <a href="/order/addpaymentmethod">Add New Payment Method</a>
+        <div class="text-center" width="90%">
+          <a class="main-button" href="/order/addpaymentmethod">Add New Payment Method</a>
         </div>
       </div>
     </div>
