@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+router.use(function(req, res, next) {
+  res.locals.currentUser = req.session.user ? req.session.user : undefined;
+  next();
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let user;

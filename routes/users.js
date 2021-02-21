@@ -6,6 +6,11 @@ const User = mongoose.model('User');
 const MenuItem = mongoose.model('MenuItem');
 const url = require('url');
 
+router.use(function(req, res, next) {
+  res.locals.currentUser = req.session.user ? req.session.user : undefined;
+  next();
+});
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');

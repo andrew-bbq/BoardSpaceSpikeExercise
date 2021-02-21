@@ -9,6 +9,11 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const url = require('url');
 
+router.use(function(req, res, next) {
+    res.locals.currentUser = req.session.user ? req.session.user : undefined;
+    next();
+});
+
 /* GET home page. */
 router.get('/addmenuitem', function(req, res, next) {
     if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
