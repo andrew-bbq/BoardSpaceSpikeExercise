@@ -62,10 +62,11 @@
           </svg>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% if (err && err.length) { %> <div class="text-danger"><%=err%></div><%}%>
             <form action="/users/login" method="POST">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input class="form-control" name="username" placeholder="Username">
+                    <input class="form-control" value="<%=username%>" name="username" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
