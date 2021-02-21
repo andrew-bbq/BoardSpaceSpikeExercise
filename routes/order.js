@@ -5,6 +5,7 @@ let mongoose = require('mongoose');
 const User = mongoose.model('User');
 const MenuItem = mongoose.model('MenuItem');
 const CreditCard = mongoose.model('CreditCard');
+const url = require('url');
 
 router.get('/', function(req, res, next) {
     /**if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
@@ -51,7 +52,8 @@ router.post('/startorder', function(req, res, next) {
 
 router.get('/paymentinfo', function(req, res, next) {
     CreditCard.find({userId: req.session.user._id}, function(err, paymentMethods) {
-        res.render('paymentinfo', {cards: paymentMethods});
+        let cart = (req.session.cart) ? req.session.cart : {};
+        res.render('paymentinfo', {cards: paymentMethods, cart: cart});
     });
 });
 
@@ -85,6 +87,30 @@ router.post('/addpaymentmethod', function(req, res, next) {
             }
         })
     }
-})
+});
+
+router.post('/cardsubmit', function(req, res, next) {
+    if(req.body.action == "Delete") {
+        CreditCard.deleteOne({_id: req.body.toUse}, function(err) {
+            return res.redirect("/order/paymentinfo");
+        });
+    } else if (req.body.action == "Use this card") {
+        return res.redirect(url.format({pathname:"/order/completepayment", query: {"card": req.body.toUse}}))
+    }
+    console.log(req.body.action);
+});
+
+router.get('/completepayment', function(req, res, next) {
+    let cart = (req.session.cart) ? req.session.cart : {};
+    if (cart.length == 0) {
+        res.redirect('/');
+    }
+    CreditCard.findOne({_id: req.query.card}, function(err, cardObject) {
+        if (err) {
+            next(err);
+        }
+        res.render("completepayment", {card: cardObject, cart: cart});
+    });
+});
 
 module.exports = router;

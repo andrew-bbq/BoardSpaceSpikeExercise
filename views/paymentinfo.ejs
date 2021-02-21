@@ -25,9 +25,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/">Home</a>
-        <a class="nav-item nav-link" href="#">Menu</a>
-        <a class="nav-item nav-link" href="#">Cart</a>
-        <a class="nav-item nav-link" href="#"><b>Account</b></a>
+        <a class="nav-item nav-link" href="/order">Menu</a>
+        <a class="nav-item nav-link" href="/users/cart">Cart</a>
+        <a class="nav-item nav-link" href="/users/customerAccount"><b>Account</b></a>
       </div>
     </div>
   </nav>
@@ -44,8 +44,8 @@
                 <li>
                     Card ending in <%= card.cardNumber%10000 %>
                     <div class="float-right ml-3">
-                        <form>
-                            <input hidden="<%= card.id %>" />
+                        <form action="/order/cardsubmit" method="POST">
+                            <input type="hidden" value="<%= card.id %>" name="toUse"/>
                             <input name="action" type="submit" value="Use this card" />
                             <input name="action" type="submit" value="Delete" />
                         </form>
