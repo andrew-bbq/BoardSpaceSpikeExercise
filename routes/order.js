@@ -4,8 +4,6 @@ let mongoose = require('mongoose');
 const User = mongoose.model('User');
 const MenuItem = mongoose.model('MenuItem');
 
-module.exports = router;
-
 router.get('/', function(req, res, next) {
     /**if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
         return res.redirect('/');
@@ -27,9 +25,16 @@ router.post('/ordermenu', function(req, res, next) {
     if (!req.session.cart) {
         req.session.cart = {};
     }
-    MenuItem.find({}, function(err, menuItems) {
-        res.render('ordermenu', {menuItems: menuItems});
-    });
+    itemId = req.body.itemId;
+    itemPrice = req.body.itemPrice;
+    itemName = req.body.itemName;
+    if (!req.session.cart[itemId]) {
+        let cartItem = {count: 1, name: itemName, price: itemPrice};
+        req.session.cart[itemId] = cartItem;
+    } else {
+        req.session.cart[itemId].count++;
+    }
+    return res.redirect('/order/ordermenu');
 });
 
 router.get('/viewmenu', function(req, res, next) {
@@ -37,3 +42,13 @@ router.get('/viewmenu', function(req, res, next) {
         res.render('viewmenu', {menuItems: menuItems});
     });
 });
+
+router.post('/startorder', function(req, res, next) {
+    return res.redirect("/order/paymentinfo");
+});
+
+router.get('/order/paymentinfo', function(req, res, next) {
+
+});
+
+module.exports = router;

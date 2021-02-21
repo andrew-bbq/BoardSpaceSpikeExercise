@@ -1,7 +1,9 @@
 var express = require('express');
+const session = require('express-session');
 var router = express.Router();
 let mongoose = require('mongoose');
 const User = mongoose.model('User');
+const MenuItem = mongoose.model('MenuItem');
 const url = require('url');
 
 /* GET users listing. */
@@ -70,10 +72,14 @@ router.get('/signup', function(req, res, next) {
 
 
 router.get('/cart', function(req, res, next) {
-  res.render('cart', {err: req.query.err, username: req.query.username});
-})
+  let cart = (req.session.cart) ? req.session.cart : {};
+  res.render('cart', {cart: cart});
+});
 
 router.post('/cart', function(req, res, next) {
+  let itemId = req.body.itemId;
+  delete(req.session.cart[itemId]);
+  return res.redirect('/users/cart');
 });
 
 

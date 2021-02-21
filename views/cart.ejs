@@ -75,8 +75,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Menu</a>
-            <a class="nav-item nav-link" href="#">Cart</a>
+            <a class="nav-item nav-link" href="/order/">Menu</a>
+            <a class="nav-item nav-link disabled" href="#">Cart</a>
             <a class="nav-item nav-link" href="/users/customerAccount">Account</a>
           </div>
         </div>
@@ -85,11 +85,26 @@
 
     <div class="box">
       <ul id="cartList">
+        <% let subtotal = 0 %>
+        <% for (let itemId in cart) { console.log(itemId); %>
+          <li>
+            <form action="/users/cart" method="POST">
+            <% let tempPrice = cart[itemId].price * cart[itemId].count; subtotal += tempPrice; %>
+            <%=cart[itemId].count%>x <%=cart[itemId].name%> <span style="position: absolute; right: 40px;">$<%=tempPrice.toFixed(2)%>  <input type="hidden" name="itemId" value="<%=itemId%>" />
+              <input type="submit" value="X" /></span>
+            </form>
+          </li>
+        <% } %>
       </ul>
-      <div class="priceDisplay" id="subTotalDisplay"></div> 
-      <div class="priceDisplay" id="taxDisplay"></div> 
-      <div class="priceDisplay" id="tipDisplay"></div> 
-      <div class="priceDisplay" id="totalDisplay"></div> 
+      <%
+        let salesTax = subtotal * 0.05;
+        let tip = subtotal*0.15;
+      %>
+      <% if (subtotal > 0) { %><div class="float-right"><form action="/order/placeorder" method="POST"><input type="submit" class="text-center" style="margin-right: 5.5vw; margin-top: 35px;" value="Place Order"/></form></div> <% } %>
+      <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%= (subtotal).toFixed(2); %></span></div> 
+      <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%= (salesTax).toFixed(2); %></span></div> 
+      <div class="priceDisplay" id="tipDisplay"><span style="position: relative; left: 3%;">Forced Tip: $<%= (tip).toFixed(2); %></span></div> 
+      <div class="priceDisplay" id="totalDisplay"><span style="position: relative; left: 3%;">Total: $<%= (subtotal + salesTax + tip).toFixed(2); %></span></div> 
       <br/>
     </div>
     <br/>
@@ -102,146 +117,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
   </body>
-  <script>
-    // globals 
-
-    var myCart = [[1,1,2], ["Chicken Tenders","Mac and Cheese","Cheese Curds"],[8.95,7.95,4.95]];
-    const SALES_TAX_RATE = 0.05;
-    var tipRate = 0.15;
-
-
-    window.onload = initCart();
-
-    function initCart() {
-      for (var i = 0; i < myCart[0].length; i++) {
-        addCartItem(myCart[0][i], myCart[1][i],myCart[2][i]);
-      }
-
-      updateTotal();
-    }
-
-    function addCartItem(itemQuantity, itemName, itemPrice) {
-      var cartItem = document.createElement("li");
-
-      var name = document.createTextNode(itemQuantity + "x " + itemName);
-
-      cartItem.appendChild(name);
-
-      var price = document.createElement("span");
-      price.innerHTML = "$"+itemPrice;
-      price.style = " position: absolute; right: 40px;";
-
-      cartItem.appendChild(price);
-
-      var closeButton = document.createElement("span");
-      closeButton.innerHTML = "x";
-      closeButton.className = "close";
-
-      cartItem.appendChild(closeButton);
-
-      document.getElementById("cartList").appendChild(cartItem);
-    }
-
-    function updateTotal() { 
-
-    
-
-      // Subtotal
-      var subTotal = 0;
-
-      for (var i = 0; i < myCart[0].length; i++) {
-        subTotal += myCart[0][i]*myCart[2][i];
-      }
-
-      removeChildNodes("subTotalDisplay");
-
-      var subTotalText = document.createElement("span");
-      subTotalText.innerHTML = "Subtotal:";
-      subTotalText.style = " position: relative; left: 3%;"
-      
-      document.getElementById("subTotalDisplay").appendChild(subTotalText);
-
-      var subTotalValue = document.createElement("span");
-      subTotalValue.innerHTML = "$"+subTotal.toFixed(2);
-      subTotalValue.style = " position: absolute; right: 15%;";
-
-      document.getElementById("subTotalDisplay").appendChild(subTotalValue);
-
-      // Tax
-      var tax = subTotal*SALES_TAX_RATE;
-
-      removeChildNodes("taxDisplay");
-
-      var taxText = document.createElement("span");
-      taxText.innerHTML = "Sales Tax:";
-      taxText.style = " position: relative; left: 3%;"
-      
-      document.getElementById("taxDisplay").appendChild(taxText);
-
-      var taxValue = document.createElement("span");
-      taxValue.innerHTML = "$"+(tax).toFixed(2);
-      taxValue.style = " position: absolute; right: 15%;";
-
-      document.getElementById("taxDisplay").appendChild(taxValue);
-
-      // Tip
-      var tip = subTotal*tipRate;
-      
-      removeChildNodes("tipDisplay");
-
-      var tipText = document.createElement("span");
-      tipText.innerHTML = "Tip:";
-      tipText.style = " position: relative; left: 3%;"
-      
-      document.getElementById("tipDisplay").appendChild(tipText);
-
-      var tipValue = document.createElement("span");
-      tipValue.innerHTML = "$"+(tip).toFixed(2);
-      tipValue.style = " position: absolute; right: 15%;";
-
-      document.getElementById("tipDisplay").appendChild(tipValue);
-
-      // Total
-      var total = subTotal+tax+tip;
-
-      removeChildNodes("totalDisplay");
-
-      var totalText = document.createElement("span");
-      totalText.innerHTML = "Total:";
-      totalText.style = " position: relative; left: 3%;"
-      
-      document.getElementById("totalDisplay").appendChild(totalText);
-
-      var totalValue = document.createElement("span");
-      totalValue.innerHTML = "$"+(total).toFixed(2);
-      totalValue.style = " position: absolute; right: 15%;";
-
-      document.getElementById("totalDisplay").appendChild(totalValue);
-
-      // Place Order Button
-      var placeOrderButton = document.getElementById("orderButton");
-      placeOrderButton.innerHTML = "Place Order: $"+total.toFixed(2);
-    }
-
-    function removeChildNodes(id) {
-      const parent = document.getElementById(id);
-      while (parent.firstChild) {
-        parent.removeChild(parent.lastChild);
-      }
-    }
-
-    var closeButtons = document.getElementsByClassName("close");
-    // remove cart items
-    for (var i = 0; i < closeButtons.length; i++) {
-      closeButtons[i].addEventListener("click", function() {
-        var listIndex = $( "li" ).index(this.parentElement);
-        this.parentElement.parentElement.removeChild(this.parentElement);
-        myCart[0].splice(listIndex,1);
-        myCart[1].splice(listIndex,1);
-        myCart[2].splice(listIndex,1);
-        updateTotal();
-      });
-    }
-  </script>
   <script src="/javascripts/global.js"></script>
 </html>
