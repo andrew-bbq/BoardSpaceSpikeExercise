@@ -14,53 +14,35 @@
 </head>
 
 <body>
-  <!-- Topbar -->
-  <%- include('partials/topbar', {page: "Order"});%>
-  <div class="container" style="z-index: 0">
-    <div class="row">
-      <div class="col-sm-9">
-        <h1>Menu</h1>
+  <!-- Topbar-->
+  <%- include('partials/topbar', {page: "Order" });%>
+    <div class="container mt-3 justify-content-center">
+      <div class="row">
+        <div class="card-deck" style="margin:auto">
+          <% menuItems.forEach(function(menuItem) { %>
+            <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
+              <img style = "border-radius: 25px 25px 25px 0px;"class="card-img-top"
+                src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
+                alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%=menuItem.name%>
+                </h5>
+                <div class="card-title"> - $<%=menuItem.price%>
+                </div>
+                <p class="card-text" style="line-height: 1em;">
+                  <%=menuItem.description%>
+                </p>
+                <div class="text-danger">
+                  <%=menuItem.inStock?"":"Out of stock"%>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+        </div>
       </div>
     </div>
-    <% menuItems.forEach(function(menuItem) { %>
-      <div class="row menu-item container-fluid">
-              <div class="col-9">
-                    <div class="row">
-                      <div class="col-7">
-                        <div class="row">
-                          <div class="menu-label">
-                            <%=menuItem.name%>
-                          </div>
-                          <div class="menu-price"> - $<%=menuItem.price%>
-                          </div>
-                          <div class="text-danger" style="margin-top: 1.3vw; padding-left: 1em;">
-                            <%=menuItem.inStock?"":"Out of stock"%>
-                          </div>
-                        </div>  
-                      </div> 
 
-                      <% if(menuItem.inStock) { %>
-                        <div class="col-4">
-                          <form action="/order/ordermenu" method="POST">
-                            <input type="hidden" name="itemId" value="<%=menuItem.id%>" />
-                            <input type="hidden" name="itemPrice" value="<%=menuItem.price%>" />
-                            <input type="hidden" name="itemName" value="<%=menuItem.name%>" />
-                          </form>
-                        </div>
-
-                      <% } %>
-                    </div>
-                    <div class="row menu-description">
-                      <%=menuItem.description%>
-                    </div>
-              </div>
-              <div class="col" style="margin-right: 0; padding-right: 0; text-align: right;">
-                <img class=""  width="100vw" height="100vw" style="border-radius: 0px 25px 25px 0px;"
-                  src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>" />
-              </div>
-          </div>
-          <% }) %>
-      </div>
 </body>
 <script src="/javascripts/global.js"></script>
 

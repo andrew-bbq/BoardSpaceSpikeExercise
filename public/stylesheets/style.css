@@ -334,24 +334,7 @@ li {
 }
 
 
-
-
-/* Source for shapes below: https://css-tricks.com/the-shapes-of-css/ */
-
-
-#triangle-right {
-  width: 0;
-  height: 0;
-  border-top: 50px solid transparent;
-  border-left: 100px solid #FFF;
-  border-bottom: 50px solid transparent;
-}
-
-
-#triangle-down {
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-top: 100px solid #FFF;
+.carousel-image{
+  width:80vw; 
+  height: 40vw
 }
