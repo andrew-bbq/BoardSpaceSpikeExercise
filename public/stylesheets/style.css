@@ -6,6 +6,7 @@ a {
 body {
   background-color: #6aa84f;
   margin-top: 20px;
+  line-height: 2vw;
 }
 
 li {
@@ -156,13 +157,13 @@ li {
 
 .field-label {
   font-family: "Comfortaa", sans-serif;
-  font-size: 1vw;
+  font-size: 2vw;
   padding-left: 2.7%;
 }
 
 .field {
   font-family: "Comfortaa", sans-serif;
-  font-size: 1vw;
+  font-size: 2vw;
   background-color: #6aa84f;
   border-color: transparent;
   margin-left: 2.5%;
