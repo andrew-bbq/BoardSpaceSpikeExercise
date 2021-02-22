@@ -8,11 +8,7 @@ router.use(function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  let user;
-  if(req.session.user) {
-    user = req.session.user;
-  }
-  res.render('index', { username: req.query.username, err: req.query.err, user: user });
+  res.render('index', { username: req.query.username, err: req.query.err });
 });
 
 router.get('/userlist', function(req,res) {
