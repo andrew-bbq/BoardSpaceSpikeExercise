@@ -53,6 +53,10 @@
                 <form action="/menu/editmenu" method="post">
                     <input type="submit" name="action" value="Edit"/>
                     <input type="submit" name="action" value="Delete"/>
+                    <select name="instock" onchange="this.form.submit()">
+                      <option value="1" <%=menuItem.inStock ? 'selected' :''%>>In Stock</option>
+                      <option value="0" <%=!menuItem.inStock ? 'selected' :''%>>Out of stock</option>
+                    </select>
                     <input type="hidden" value="<%=menuItem.id%>" name="toEdit"/>
                 </form>
             </div>

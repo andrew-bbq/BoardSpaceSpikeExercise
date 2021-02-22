@@ -23,6 +23,9 @@ router.get('/addmenuitem', function(req, res, next) {
 });
 
 router.post('/addmenuitem', upload.single('image'), function(req, res, next) {
+    if(!req.session.user || req.session.user.role != User.schema.path('role').enumValues[0]) {
+        return res.redirect('/');
+    }
     const filePath = path.join('uploads/' + req.file.filename);
     let itemData = {
         name: req.body.name,
@@ -77,6 +80,18 @@ router.post('/editmenu', function(req, res, next) {
             return res.redirect("/menu/editmenu");
         });
     }
+    let inStock = (req.body.instock == 1);
+    MenuItem.findByIdAndUpdate(
+        {_id: req.body.toEdit},
+        {inStock: inStock},
+        function(err, result) {
+            if(err) {
+                return next(err);
+            }
+            return res.redirect('/menu/editmenu');
+        }
+    )
+
 });
 
 router.get('/editmenuitem', function(req, res, next) {
