@@ -1,44 +1,51 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Custom Style Sheets -->
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
-    <link rel='stylesheet' href="/stylesheets/navbar.css" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Add Menu Item</title>
-  </head>
-  <body>
-    <!-- Topbar --> 
-    <%- include('partials/topbar', {page: "EditMenu"});%>
-    <form action="/menu/addmenuitem" method="post" enctype="multipart/form-data">
-      <div class="box mt-3" style="">
-        <div class="sub-header float-left" style="width: 77%">Add Menu Item</div>
-        
-        
-        <div class="input-group mb-3">
-          <input name = "name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
+  <!-- Custom Style Sheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
+  <link rel='stylesheet' href="/stylesheets/navbar.css" />
 
-        <div class="input-group mb-3">
-          <input name = "description" type="text" class="form-control" placeholder="Description" aria-label="description" aria-describedby="basic-addon1">
-        </div>
+  <title>Add Menu Item</title>
+</head>
 
-        <div class="input-group mb-3">
-          <input name = "price" type="text" class="form-control" placeholder="Price" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-
-        <label class = "field-label text-left" for="image">Image:</label>
-        <input style = "font-size:1vw;width:30%; background-color: #d9ead3; margin-left: 5%;" class = "form-control" name="image" id="image" type="file" required/>
-
-        <div class="float-right" style="width: 20%" ><input class="main-button" type="submit" value="Create" /></div>
+<body>
+  <!-- Topbar -->
+  <%- include('partials/topbar', {page: "EditMenu" });%>
+    <div class="box mt-3">
+      <div class="row">
+        <h1 class="sub-header"> Add Menu Item</h1>
       </div>
-      
-    </form>
-  </body>
-  <script src="/javascripts/global.js"></script>
+      <form action="/menu/addmenuitem" method="post" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+          <input name="name" type="text" class="field form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <input name="description" type="text" class="field form-control" placeholder="Description"
+            aria-label="description" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <input name="price" type="text" class="field form-control" placeholder="Price" aria-label="Username"
+            aria-describedby="basic-addon1">
+        </div>
+        <input style=" background-color: #d9ead3; margin-left: 5%;" class="field form-control" name="image" id="image"
+          type="file" required />
+
+        <div class="text-right" style="margin-right: 2.5%;">
+          <input class="main-button mt-2 mb-3" type="submit" value="Update" />
+        </div>
+      </form>
+    </div>
+</body>
+<script src="/javascripts/global.js"></script>
+
 </html>
