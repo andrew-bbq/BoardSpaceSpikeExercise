@@ -19,42 +19,53 @@
             >Home
       </a>
 
-      <a href="/order" <% if(active=='Order' ){ %>
-        class="nav-item nav-link nav-button disabled"
-        <% } else{ %>
-          class="nav-item nav-link nav-button"
-          <% } %>
-            >Order
-      </a>
-
       <%if(currentUser) { %>
-      <a href="/users/cart" <% if(active=='Cart' ){ %>
-        class="nav-item nav-link nav-button disabled"
-        <% } else{ %>
-          class="nav-item nav-link nav-button"
-          <% } %>
-            >Cart
-      </a>
-      <% } %>
-
-      <%if(currentUser) { %>
-      <a href="/users/customerAccount" <% if(active=='CustomerAccount' ){ %>
-        class="nav-item nav-link nav-button disabled"
-        <% } else{ %>
-          class="nav-item nav-link nav-button"
-          <% } %>
-            >Account
-      </a>
-      <% } %>
-
-      <%if(currentUser && currentUser.role=='admin' ) { %>
-        <a href="/menu/editmenu" <% if(active=='EditMenu' ){ %>
+        <a href="/order" <% if(active=='Order' ){ %>
           class="nav-item nav-link nav-button disabled"
           <% } else{ %>
             class="nav-item nav-link nav-button"
-            <% } %>>Edit Menu
+            <% } %>
+              >Order
         </a>
+        <% } else{ %>
+          <a href="/order" <% if(active=='Order' ){ %>
+            class="nav-item nav-link nav-button disabled"
+            <% } else{ %>
+              class="nav-item nav-link nav-button"
+              <% } %>
+                >Menu
+          </a>
         <% } %>
+
+
+          <%if(currentUser) { %>
+            <a href="/users/cart" <% if(active=='Cart' ){ %>
+              class="nav-item nav-link nav-button disabled"
+              <% } else{ %>
+                class="nav-item nav-link nav-button"
+                <% } %>
+                  >Cart
+            </a>
+            <% } %>
+
+              <%if(currentUser) { %>
+                <a href="/users/customerAccount" <% if(active=='CustomerAccount' ){ %>
+                  class="nav-item nav-link nav-button disabled"
+                  <% } else{ %>
+                    class="nav-item nav-link nav-button"
+                    <% } %>
+                      >Account
+                </a>
+                <% } %>
+
+                  <%if(currentUser && currentUser.role=='admin' ) { %>
+                    <a href="/menu/editmenu" <% if(active=='EditMenu' ){ %>
+                      class="nav-item nav-link nav-button disabled"
+                      <% } else{ %>
+                        class="nav-item nav-link nav-button"
+                        <% } %>>Edit Menu
+                    </a>
+                    <% } %>
     </div>
   </div>
 </nav>
