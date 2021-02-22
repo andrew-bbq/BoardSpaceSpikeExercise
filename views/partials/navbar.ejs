@@ -27,6 +27,7 @@
             >Order
       </a>
 
+      <%if(currentUser) { %>
       <a href="/users/cart" <% if(active=='Cart' ){ %>
         class="nav-item nav-link nav-button disabled"
         <% } else{ %>
@@ -34,7 +35,9 @@
           <% } %>
             >Cart
       </a>
+      <% } %>
 
+      <%if(currentUser) { %>
       <a href="/users/customerAccount" <% if(active=='CustomerAccount' ){ %>
         class="nav-item nav-link nav-button disabled"
         <% } else{ %>
@@ -42,9 +45,10 @@
           <% } %>
             >Account
       </a>
+      <% } %>
 
       <%if(currentUser && currentUser.role=='admin' ) { %>
-        <a href="/menu/editmenu" <% if(active=='CustomerAccount' ){ %>
+        <a href="/menu/editmenu" <% if(active=='EditMenu' ){ %>
           class="nav-item nav-link nav-button disabled"
           <% } else{ %>
             class="nav-item nav-link nav-button"
