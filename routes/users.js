@@ -95,6 +95,9 @@ router.post('/cart', function (req, res, next) {
 
 router.post('/updateusername', function (req, res, next) {
   let newUsername = req.body.newUsername;
+  if (newUsername == null) {
+    return res.redirect('/users/customeraccount');
+  }
   User.findByIdAndUpdate({ _id: req.session.user._id }, { username: newUsername }, function (err, user) {
     if (err) {
       next(err);
@@ -114,6 +117,9 @@ router.post('/updateusername', function (req, res, next) {
 router.post('/updatepassword', function (req, res, next) {
   let pass = req.body.newPassword;
   let confPass = req.body.confirmPassword;
+  if (pass == null || confPass == null) {
+    return res.redirect('/users/customeraccount');
+  }
   if (pass != confPass) {
     return res.redirect('/users/customeraccount');
   }
@@ -134,6 +140,9 @@ router.post('/updatepassword', function (req, res, next) {
 
 router.post('/updatephone', function (req, res, next) {
   let newPhone = req.body.newPhone;
+  if (newPhone == null) {
+    return res.redirect('/users/customeraccount');
+  }
   User.findByIdAndUpdate({ _id: req.session.user._id }, { phone: newPhone }, function (err, user) {
     if (err) {
       next(err);
@@ -155,6 +164,9 @@ router.post('/updateaddress', function (req, res, next) {
   let city = req.body.city;
   let state = req.body.state;
   let zip = req.body.zip;
+  if( address == null || aptsuite == null || city == null || state == null || zip == null){
+    return res.redirect('/users/customeraccount');
+  }
   User.findByIdAndUpdate({ _id: req.session.user._id }, { address: address, aptsuite: aptsuite, city: city, state: state, zip: zip }, function (err, user) {
     if (err) {
       next(err);
