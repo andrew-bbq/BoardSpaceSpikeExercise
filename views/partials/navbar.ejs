@@ -24,7 +24,7 @@
         <% } else{ %>
           class="nav-item nav-link nav-button"
           <% } %>
-            >Order
+            ><%=(currentUser) ? 'Order' : 'Menu'%>
       </a>
 
       <%if(currentUser) { %>
@@ -47,13 +47,17 @@
       </a>
       <% } %>
 
-<<<<<<< HEAD
-      <%if(currentUser && currentUser.role=='admin') { %>
-        <a href="/menu/editmenu" <% if(active=='CustomerAccount' ){ %>
-=======
+      <%if(currentUser && (currentUser.role=='staff' || currentUser.role=='admin')){%>
+        <a href="/staff/orderlist" <% if(active=='OrderList' ){ %>
+          class="nav-item nav-link nav-button disabled"
+          <% } else{ %>
+            class="nav-item nav-link nav-button"
+            <% } %>>View Orders
+        </a>
+      <%}%>
+
       <%if(currentUser && currentUser.role=='admin' ) { %>
         <a href="/menu/editmenu" <% if(active=='EditMenu' ){ %>
->>>>>>> ff63c015e40487d6799680197becb0b60c3cddd0
           class="nav-item nav-link nav-button disabled"
           <% } else{ %>
             class="nav-item nav-link nav-button"
