@@ -19,52 +19,21 @@
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Home"});%>
 
-  <div class="box mt-3" style="">
-    <div class="row">
-      <h1 class="sub-header"> Update this box</h1>
-    </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
-      </div>
-      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  <div class="container text-center">
+    <h1 class="header1">Come in and dine or order online</h1>
+    <div class="row mb-3">
+      <% if(currentUser) { %>
+        <button class="main-button" type="button"><a class="link" href="/order/ordermenu">Order</a></button>
+      <% } else { %>
+        <button class="main-button" type="button"><a class="link" href="/order/viewmenu">Order</a></button>
+      <% } %>
+      <button class="main-button" type="button"><a class="link" href="https://www.google.com/maps/place/Manhattan,+New+York,+NY/@40.7590615,-73.969231,13z/data=!4m2!3m1!1s0x89c2588f046ee661:0xa0b3281fcecc08c">Directions</a></button>
     </div>
-    
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2">@example.com</span>
-      </div>
+    <div id="map-container-google-1" class="z-depth-1-half map-container">
+      <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+        style="height: 500px; width: 60vw; border:0" allowfullscreen></iframe>
     </div>
-    
-    <label for="basic-url">Your vanity URL</label>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-      </div>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-    </div>
-    
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">$</span>
-      </div>
-      <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-      <div class="input-group-append">
-        <span class="input-group-text">.00</span>
-      </div>
-    </div>
-    
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">With textarea</span>
-      </div>
-      <textarea class="form-control" aria-label="With textarea"></textarea>
-    </div>
-    
-    <input class="main-button mt-3 mb-3" style="margin:auto" type="submit" value="Update" />
-
   </div>
 
 </body>

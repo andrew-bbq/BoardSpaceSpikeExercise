@@ -355,3 +355,11 @@ li {
   border-right: 50px solid transparent;
   border-top: 100px solid #FFF;
 }
+
+.link {
+  color: #6aa84f;
+}
+
+.link:hover {
+  color: #FFF;
+}
