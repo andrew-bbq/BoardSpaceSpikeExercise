@@ -17,7 +17,7 @@
     <%- include('partials/topbar', {page: "CustomerAccount"});%>
 
     <!-- Account update forms -->
-    <div style="margin-top:13%;">
+    <div style="margin-top:2%;">
         <form style="margin: 0px;" method="POST" action="/users/updateusername">
             <div class="box" style="margin-top: 20px;">
                 <div class="row">
@@ -26,7 +26,7 @@
                     <div class="float-right" style="width: 20%" ><input class="main-button" type="submit" value="Update" /></div>
                 </div>
 
-                <label class="field-label" for="newUsername text-left">New Username</label>
+                <label class="field-label text-left" for="newUsername">New Username</label>
                 <input class="field" type="text" name="newUsername" value="<%=user.username%>">
             </div>
         </form>
