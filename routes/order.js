@@ -121,6 +121,7 @@ router.post('/completepayment', function (req, res, next) {
     const cardId = req.body.card;
     const userId = req.session.user._id;
     const pickup = req.body.pickup == 1;
+    const car = req.body.car ? req.body.car : "";
     let menuItems = {};
     for (let itemId in req.session.cart) {
         menuItems[itemId] = req.session.cart[itemId].count;
@@ -130,6 +131,7 @@ router.post('/completepayment', function (req, res, next) {
         cardId: cardId,
         price: price,
         pickup: pickup,
+        car: car,
         menuItems: menuItems,
         status: Order.schema.path('status').enumValues[0],
         time: Date.now()
@@ -146,6 +148,9 @@ router.post('/completepayment', function (req, res, next) {
 
 router.get("/trackorder", function(req, res, next) {
     Order.findOne({_id: req.query.order}, function(err, order) {
+        if(err) {
+            return next(err);
+        }
         let menuIds = [];
         for (let itemId in order.menuItems) {
             menuIds.push(itemId);

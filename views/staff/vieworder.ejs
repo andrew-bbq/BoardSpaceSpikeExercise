@@ -84,7 +84,7 @@
             <% if (!order.pickup) { %>
               Deliver to: <%=orderUser.address%> <%=orderUser.aptsuite?orderUser.aptsuite+", ":", "%><%=orderUser.city%>, <%=orderUser.state%>, <%=orderUser.zip%> (Phone: <%=orderUser.phone%>)
             <% } else { %>
-              Will pick up in {CAR INFO GOES HERE}
+              Ordered for pickup, car description: <%=order.car%>
             <% } %>
         </div>
       </div>

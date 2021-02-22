@@ -28,6 +28,9 @@ const Order = new Schema({
   pickup: {
     type: Boolean,
     required: true
+  },
+  car: {
+    type: String
   }
 });
 

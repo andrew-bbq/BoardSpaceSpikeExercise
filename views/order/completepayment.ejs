@@ -99,8 +99,8 @@
                     <% } %>
         </ul>
         <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
-            <div class="float-right mt-3" style="margin-right:5vw"><select class="form-control" onchange="document.getElementById('hiddenpickup').value = this.value; document.getElementById('car-input').style.display = (this.value =='1') ? 'block': 'hidden';"><option value="1">Pickup</option><option value="0">Delivery</option></select></div>
-            <div id="car-input" class="float-right mt-3" style="margin-right:5vw"><input class="form-control" onchange="document.getElementById('hiddencar').value = this.value" /></div>
+            <div class="float-right mt-4" style="margin-right:5vw"><select class="form-control" onchange="document.getElementById('hiddenpickup').value = this.value; document.getElementById('car-input').style.display = ((this.value ==1) ? 'block': 'none');"><option value="1">Pickup</option><option value="0">Delivery</option></select></div>
+            <div id="car-input" class="float-right mt-4" style="margin-right:5vw"><input placeholder="Car description" class="form-control" oninput="document.getElementById('hiddencar').value = this.value" /></div>
             <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%=
                         (subtotal).toFixed(2); %></span></div>
             <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%=
