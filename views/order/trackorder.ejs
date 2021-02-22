@@ -15,35 +15,39 @@
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart"});%>
   <div class="container">
-      <div class="row">
+      <div class="row text-center header2">
         <div class="col-sm-12">
             <h1>Order Details</h1>
         </div>
       </div>
-      <div class="row">
-          <div class="col-sm-12">
+      <div class="box">
+        <div class="row">
+            <div class="col-sm-12">
+              <h1 class="sub-header">Ordered Items</h1>
               <ul>
-            <% menuItems.forEach(function(menuItem) { %>
-                <li><%= menuItem.count %>x <%=menuItem.name%></li>
-            <% }); %>
-            </ul>
-          </div>
-      </div>
-      <div class="row">
+              <% menuItems.forEach(function(menuItem) { %>
+                  <li><%= menuItem.count %>x <%=menuItem.name%></li>
+              <% }); %>
+              </ul>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="sub-header">Payment and Tracking</h1>
+            <div class="col-sm-12">
+                $<%=order.price%> paid for with card ending in <%=cardNumber%>
+            </div>
+        </div>
+        <div class="row">
           <div class="col-sm-12">
-              $<%=order.price%> paid for with card ending in <%=cardNumber%>
+              Status: <%= order.status %>
           </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-            Status: <%= order.status %>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-            Order placed at <%= order.time %>
+        <div class="row">
+          <div class="col-sm-12">
+              Order placed at <%= order.time %>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 </body>
 <script src="/javascripts/global.js"></script>
