@@ -47,13 +47,8 @@
       </a>
       <% } %>
 
-<<<<<<< HEAD
-      <%if(currentUser && currentUser.role=='admin') { %>
-        <a href="/menu/editmenu" <% if(active=='CustomerAccount' ){ %>
-=======
       <%if(currentUser && currentUser.role=='admin' ) { %>
         <a href="/menu/editmenu" <% if(active=='EditMenu' ){ %>
->>>>>>> ff63c015e40487d6799680197becb0b60c3cddd0
           class="nav-item nav-link nav-button disabled"
           <% } else{ %>
             class="nav-item nav-link nav-button"
