@@ -22,32 +22,28 @@
     <!-- Topbar -->
     <%- include('partials/topbar', {page: "CustomerAccount"});%>
       <form action="/users/createuser" method="post">
-      <div style="margin-top: 26%;">
-        <h1 class="header2" style="margin-left: 10%;">Create new account</h1>
-          <div class="box" style="margin-top: 20px;">
-            <label class="field-label text-left" for="username">Username: </label>
-            <input class="field" name="username" type="text" value="<%= username %>" required />
-            <label class="field-label text-left" for="password">Password: </label>
-            <input class="field" name="password" type="password" required />
-            <label class="field-label text-left" for="passwordConf">Confirm Password:</label>
-            <input class="field" name="passwordConf" type="password" required />
-            <label class="field-label text-left" for="phone">Phone Number: </label>
-            <input class="field" name="phone" type="tel" required />
+ 
+        <div class="row text-center header2 mb-0">
+          <div class="col-sm-12 mb-0">
+            <h1 class ="mb-0">Create New Account</h1>
           </div>
-          <div class="box" style="margin-top: 20px;">
-            <label class="field-label text-left" for="address">Address: </label>
-            <input class="field" name="address" required />
-            <label class="field-label text-left" for="aptsuite">Apartment, suite, etc: </label>
-            <input class="field" name="aptsuite" />
-            <label class="field-label text-left" for="city">City: </label>
-            <input class="field" name="city" required />
-            <label class="field-label text-left" for="state">State/Province: </label>
-            <input class="field" name="state" required />
-            <label class="field-label text-left" for="zip">Zip: </label>
-            <input class="field" name="zip" type="number" required />
+        </div>
+          <div class="box">
+            <input class="field form-control mt-3" name="username" type="text" value="<%= username %>" required placeholder="Username"/>
+            <input class="field form-control" name="password" type="password" required placeholder="Password"/>
+            <input class="field form-control" name="passwordConf" type="password" required placeholder="Confirm Password"/>
+            <input class="field form-control" name="phone" type="tel" required placeholder="Phone Number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="10" />
           </div>
-          <div class="text-center">
-            <input class="main-button" style="margin-top: 10px; margin-bottom: 5vh;" type="submit" value="Create" />
+          <div class="box mb-3" style="margin-top: 20px;">
+            <input class="field form-control mt-3" name="address" required placeholder = "Address"/>
+            <input class="field form-control" name="aptsuite" placeholder = "Apartment, suite, etc: "/>
+            <input class="field form-control" name="city" required placeholder = "City"/>
+            <input class="field form-control" name="state" required placeholder = "State/Province"/>
+            <input class="field form-control" name="zip" type="number" required placeholder="zip" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="5" />
+          <div class="text-right">
+            <input class="main-button" style="margin-bottom:10px;" type="submit" value="Create" />
           </div>
         </div>
       </form>
