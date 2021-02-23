@@ -178,34 +178,28 @@ router.get("/trackorder", function(req, res, next) {
 });
 
 router.post('/print', function (req, res, next) {
-    Order.findOne({_id: req.body.orderId}, function(err, order) {
-        if(err) {
-            return next(err);
-        }
+    // Create a document
+    const doc = new PDFDocument;
 
-        // Create a document
-        const doc = new PDFDocument;
+    // pipe document to receipt pdf filestream
+    doc.pipe(fs.createWriteStream('./Receipts/ReceiptForOrder'+req.body.orderId+'.pdf'));
+    
+    doc.fontSize(30);
+    doc.text("Thank you for ordering with BadgerBytes!");
 
-        // pipe document to receipt pdf filestream
-        doc.pipe(fs.createWriteStream('./Receipts/ReceiptForOrder'+req.body.orderId+'.pdf'));
-        
-        doc.fontSize(40);
-        doc.text("Thank you for ordering with BadgerBytes!");
+    doc.fontSize(12);
 
-        doc.fontSize(12);
+    doc.text("Order#: " + req.body.orderId);
+    doc.text("Items: " + req.body.itemList);
+    doc.text("Amount Paid: " + req.body.orderPrice);
+    doc.text("Paid with card ending in: " + req.body.cardNumber);
 
-        doc.text("Order#: " + req.body.orderId);
-        doc.text("Items: " + req.body.itemList);
-        doc.text("Amount Paid: " + req.body.orderPrice);
-        doc.text("Paid with card ending in: " + req.body.cardNumber);
+    
+    doc.text("Order Time: " + req.body.orderTime);
+    doc.text("Pickup Time: " + req.body.pickupTime);
 
-        
-        doc.text("Order Time: " + req.body.orderTime);
-        doc.text("Pickup Time: " + req.body.pickupTime);
-
-        doc.end();
-        return res.redirect(url.format({ pathname: "/order/trackorder", query: { "order": order.id } }));
-    });
+    doc.end();
+    return res.redirect(url.format({ pathname: "/order/trackorder", query: { "order": req.body.orderId } }));
 });
 
 module.exports = router;
