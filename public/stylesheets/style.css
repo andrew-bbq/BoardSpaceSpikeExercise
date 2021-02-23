@@ -408,4 +408,11 @@ li {
   .sub-header{
     font-size:2em;
   }
+  .map{
+    display:none;
+    height:0px;
+  }
+  .header1{
+    font-size:3em;
+  }
 }
