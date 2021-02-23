@@ -1,59 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Custom Style Sheets -->
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
-    <link rel='stylesheet' href="/stylesheets/navbar.css" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Customer Account Page</title>
-  </head>
-  <body>
-    <!-- Topbar --> 
-    <%- include('partials/topbar', {page: "EditMenu"});%>
+  <!-- Custom Style Sheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
+  <link rel='stylesheet' href="/stylesheets/navbar.css" />
 
-  <div class="container">
-      <div class="row">
-        <div class="col-sm-9">
-            <h1>Edit Menu Items</h1>
-        </div>
-        <div class="col-sm-3">
-          <div class="float-right">
-            <a href="/menu/addmenuitem">Add Item</a>
-          </div>
-        </div>
+  <title>Edit Menu</title>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <%- include('partials/topbar', {page: "EditMenu" });%>
+
+    <div class="container">
+      <div style="display:flex">
+        <h1 class="sub-header">EDIT MENU</h1>
+        <button  class="main-button" style="position: absolute; right: 2vw;"><a class = "link" href = "/menu/addmenuitem/">Add Item</a></button>
       </div>
-      <% menuItems.forEach(function(menuItem) { %>
+    </div>
+    <div class="container mt-3 justify-content-center">
       <div class="row">
-          <div class="col-sm-3">
-              <img width="150px" height="150px" src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>" />
-          </div>
-          <div class="col-sm-9">
-            <div class="float-right">
+        <div class="card-deck justify-content-center" style="margin:auto">
+          <% menuItems.forEach(function(menuItem) { %>
+            <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
+              <img style="border-radius: 25px 25px 25px 25px;" class="card-img-top"
+                src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
+                alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%=menuItem.name%>
+                </h5>
+                <div class="card-title"> $<%=menuItem.price%>
+                </div>
+                <p class="card-text" style="line-height: 1em;">
+                  <%=menuItem.description%>
+                </p>
+                <div class="text-danger">
+                  <%=menuItem.inStock?"":"Out of stock"%>
+                </div>
+              </div>
+              <div style="height: 40px">
+              </div>
+              <div class="cardButton">
                 <form action="/menu/editmenu" method="post">
-                    <input type="submit" name="action" value="Edit"/>
-                    <input type="submit" name="action" value="Delete"/>
-                    <select name="instock" onchange="this.form.submit()">
-                      <option value="1" <%=menuItem.inStock ? 'selected' :''%>>In Stock</option>
-                      <option value="0" <%=!menuItem.inStock ? 'selected' :''%>>Out of stock</option>
-                    </select>
-                    <input type="hidden" value="<%=menuItem.id%>" name="toEdit"/>
+                  <input type="submit" name="action" value="Edit" />
+                  <input type="submit" name="action" value="Delete" />
+                  <select name="instock" onchange="this.form.submit()">
+                    <option value="1" <%=menuItem.inStock ? 'selected' :''%>>In Stock</option>
+                    <option value="0" <%=!menuItem.inStock ? 'selected' :''%>>Out of stock</option>
+                  </select>
+                  <input type="hidden" value="<%=menuItem.id%>" name="toEdit" />
                 </form>
+              </div>
             </div>
-            <div class="float-left">
-              <div class="row">Name: <%=menuItem.name%></div>
-              <div class="row">Description: <%=menuItem.description%></div>
-              <div class="row">Price: <%=menuItem.price%></div>
-              <div class="row"><%=menuItem.inStock?"In stock":"Out of stock"%></div> 
-            </div>
-          </div>
+            <% }) %>
+        </div>
       </div>
-      <% }) %>
-  </div>
+    </div>
 </body>
-  <script src="/javascripts/global.js"></script>
+<script src="/javascripts/global.js"></script>
+
 </html>
