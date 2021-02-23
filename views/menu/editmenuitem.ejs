@@ -1,25 +1,46 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Edit Menu item</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-    <h1>Edit Menu Item</h1>
-    <form action="/menu/editmenuitem" method="post">
-        <label for="name">Name: </label>
-        <input name="name" type="text" value="<%= menuItem.name %>" required />
-        <br/>
-        <label for="description">Description: </label>
-        <textarea name="description" required><%= menuItem.description %></textarea>
-        <br/>
-        <label for="price">Price:</label>
-        <input name="price" type="number" min="0.01" step="0.01" value="<%= menuItem.price %>" required />
-        <br/>
-        <input type="hidden" value="<%=menuItem.id%>" name="itemId" />
-        <input type="submit" value="Save Changes" />
-    </form>
-  </body>
-  <script src="/javascripts/global.js"></script>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Custom Style Sheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
+  <link rel='stylesheet' href="/stylesheets/navbar.css" />
+
+  <title>Edit Menu Item</title>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <%- include('partials/topbar', {page: "EditMenu" });%>
+    <div class="box mt-3">
+      <div class="row">
+        <h1 class="sub-header">Edit Menu Item</h1>
+      </div>
+      <form action="/menu/editmenuitem" method="post">
+        <div class="input-group mb-3">
+          <input class="field form-control" name="name" type="text" value="<%= menuItem.name %>" placeholder="Name"
+            required />
+        </div>
+        <div class="input-group mb-3">
+          <textarea class="field form-control" name="description" type="text" required placeholder="Description" /><%= menuItem.description %></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <input class="field form-control" name="price" type="number" min="0.01" step="0.01"
+            value="<%= menuItem.price %>" required placeholder="Price" />
+        </div>
+        <div class="text-right" style="margin-right: 2.5%;">
+          <input type="hidden" value="<%=menuItem.id%>" name="itemId" />
+          <input class="main-button mt-2 mb-3" type="submit" value="Update" />
+        </div>
+      </form>
+    </div>
+</body>
+<script src="/javascripts/global.js"></script>
+
 </html>

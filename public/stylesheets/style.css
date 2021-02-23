@@ -18,6 +18,9 @@ li {
   font-family: "Nunito", sans-serif;
   font-size: 1.3vw;
 }
+.card-img-top{
+  border-radius: 25px 25px 25px 25px;
+}
 
 .logo {
   color: #FFF;
