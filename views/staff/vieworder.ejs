@@ -87,6 +87,17 @@
             </li>
           </ul>
       </div>
+      <div class="text-right" style="margin-right: 2.5%;">
+        <form method="POST" action="/staff/printViewOrder">
+          <input type="hidden" name="orderId" value="<%=order.id%>" />
+          <input type="hidden" name="orderPrice" value="<%=order.price%>" />
+          <input type="hidden" name="cardNumber" value="<%=(card.cardNumber%10000)%>" />
+          <input type="hidden" name="itemList" value="<% menuItems.forEach(function(menuItem) { %> <%= menuItem.count %>x <%=menuItem.name%> <% }); %>" />
+          <input type="hidden" name="orderTime" value="<%= order.time %>" />
+          <input type="hidden" name="pickupTime" value="<%=new Date(order.time .getTime() + 20*60000);%>" />
+          <input type="submit" id="orderButton" class="main-button" value="Print Receipt" />
+        </form>
+      </div>
     </div>
 </body>
 <script src=" /javascripts/global.js">

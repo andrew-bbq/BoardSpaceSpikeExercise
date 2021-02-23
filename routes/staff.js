@@ -7,6 +7,8 @@ const MenuItem = mongoose.model('MenuItem');
 const CreditCard = mongoose.model('CreditCard');
 const Order = mongoose.model('Order');
 const url = require('url');
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
 
 router.use(function(req, res, next) {
     res.locals.currentUser = req.session.user ? req.session.user : undefined;
@@ -84,6 +86,31 @@ router.post('/orderlist', function(req, res, next) {
         }
         return res.redirect('/staff/orderlist')
     });
+});
+
+router.post('/printViewOrder', function (req, res, next) {
+    // Create a document
+    const doc = new PDFDocument;
+
+    // pipe document to receipt pdf filestream
+    doc.pipe(fs.createWriteStream('./Receipts/ReceiptForOrder'+req.body.orderId+'.pdf'));
+    
+    doc.fontSize(30);
+    doc.text("Thank you for ordering with BadgerBytes!");
+
+    doc.fontSize(12);
+
+    doc.text("Order#: " + req.body.orderId);
+    doc.text("Items: " + req.body.itemList);
+    doc.text("Amount Paid: " + req.body.orderPrice);
+    doc.text("Paid with card ending in: " + req.body.cardNumber);
+
+    
+    doc.text("Order Time: " + req.body.orderTime);
+    doc.text("Pickup Time: " + req.body.pickupTime);
+
+    doc.end();
+    return res.redirect(url.format({ pathname: "/staff/vieworder", query: { "order": req.body.orderId } }))
 });
 
 module.exports = router;
