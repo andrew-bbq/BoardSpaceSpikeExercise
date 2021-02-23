@@ -225,4 +225,25 @@ router.get('/vieworder', function (req, res, next) {
   });
 });
 
+router.get('/viewusers', function(req, res, next) {
+  if (!req.session.user || req.session.user.role != 'admin') {
+    return res.redirect('/');
+  }
+  User.find({}, function(err, users) {
+    res.render('viewusers', {users: users});
+  });
+});
+
+router.post('/viewusers', function(req, res, next) {
+  if (!req.session.user || req.session.user.role != 'admin') {
+    return res.redirect('/');
+  }
+  User.findByIdAndUpdate({_id: req.body.userId}, {role: req.body.role}, function(err, user) {
+    if(err) {
+      return next(err)
+    }
+    return res.redirect('/users/viewusers');
+  });
+});
+
 module.exports = router;
