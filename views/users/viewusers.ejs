@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom Style Sheets -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
+    <link rel='stylesheet' href="/stylesheets/navbar.css" />
+</head>
+
+<body>
+    <!-- Topbar-->
+    <%- include('partials/topbar', {page: "ViewUsers" });%>
+        <div class="container mt-3 justify-content-center">
+            <div class="row">
+                <div class='col-lg-12'>
+                    <table class='table'>
+                        <thead class='thead-dark'>
+                            <tr>
+                                <th>Username</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(user=> { %>
+                                <tr>
+                                    <td>
+                                        <%=user.username%>
+                                    </td>
+                                    <td>
+                                        <%=user.phone%>
+                                    </td>
+                                    <td>
+                                        <form action="/users/viewusers" method="POST">
+                                            <input name="userId" value="<%=user._id%>" type="hidden" />
+                                            <select name="role" class='form-control' onchange="this.form.submit()">
+                                                <option value="admin" <%=user.role=="admin" ? 'selected' : '' %>>Admin
+                                                </option>
+                                                <option value="staff" <%=user.role=="staff" ? 'selected' : '' %>>Staff
+                                                </option>
+                                                <option value="user" <%=user.role=="user" ? 'selected' : '' %>>User
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script src="/javascripts/global.js"></script>
+
+</html>
