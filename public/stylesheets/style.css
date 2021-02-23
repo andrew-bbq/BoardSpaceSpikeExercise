@@ -276,16 +276,17 @@ li {
 .logout-button:hover {
   color: #FFF;
   outline: none;
-  background-color: #e06666;
+  background-color: #c50f0f;
   font-family: "Comfortaa", sans-serif;
   border-color: Transparent;
   text-decoration: underline;
 }
 
 .signup-button:hover {
-  background-color: #68a9df;
+  background-color: #046ec5;
   color: #FFF;
   border-color: Transparent;
+  text-decoration: underline;
 }
 
 .logout-button:focus {
