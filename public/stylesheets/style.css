@@ -22,6 +22,11 @@ li {
   border-radius: 25px 25px 25px 25px;
 }
 
+.image-crop {
+  height: 250px;
+  object-fit: cover;
+}
+
 .logo {
   color: #FFF;
   font-family: "Lobster", sans-serif;
