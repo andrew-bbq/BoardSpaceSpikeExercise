@@ -56,14 +56,14 @@
     <h1 class="header1">Come in and dine or order online</h1>
     <div class="row mb-3">
       <% if(currentUser) { %>
-        <button class="main-button" type="button"><a class="link" href="/order/ordermenu">Order</a></button>
+        <button class="main-button mt-1" type="button"><a class="link" href="/order/ordermenu">Order</a></button>
       <% } else { %>
-        <button class="main-button" type="button"><a class="link" href="/order/viewmenu">Order</a></button>
+        <button class="main-buttonm mt-1" type="button"><a class="link" href="/order/viewmenu">Order</a></button>
       <% } %>
-      <button class="main-button" type="button"><a target = "_blank" class="link" href="https://www.google.com/maps/place/University+of+Wisconsin-Madison,+Madison,+WI/@43.076592,-89.4124875,17z/data=!4m2!3m1!1s0x8807ac950a7f481d:0xc9e065e091733a64">Directions</a></button>
+      <button class="main-button mt-1" type="button"><a target = "_blank" class="link" href="https://www.google.com/maps/place/University+of+Wisconsin-Madison,+Madison,+WI/@43.076592,-89.4124875,17z/data=!4m2!3m1!1s0x8807ac950a7f481d:0xc9e065e091733a64">Directions</a></button>
     </div>
-    <div id="map-container-google-1" class="z-depth-1-half map-container">
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1-Zu_JQrQkwEf7P1XZ5tbGRoISpYEjN5a" style="height: 500px; width: 60vw; border:0" allowfullscreen frameborder="0"></iframe>
+    <div class = "map" id="map-container-google-1" class="z-depth-1-half map-container">
+        <iframe class = "map"src="https://www.google.com/maps/d/u/0/embed?mid=1-Zu_JQrQkwEf7P1XZ5tbGRoISpYEjN5a" style="height: 50vw; width: 60vw; border:0" allowfullscreen frameborder="0"></iframe>
     </div>
   </div>  
   
