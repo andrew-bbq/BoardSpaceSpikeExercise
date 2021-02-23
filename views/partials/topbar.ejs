@@ -4,7 +4,7 @@
     <!-- Webpage Title -->
     <div class="row">
       <h1 class="text-center logo">Badger Bytes</h1>
-      <div class="container" style="width:10%;">
+      <div class="container" style="width:10%; padding-right: 0px">
         <% if (!currentUser) { %>
           <div class="container justify-content-center">
             <button class="rounded-circle mt-3 account-button-bkg" type="button" data-toggle="dropdown"
@@ -44,9 +44,9 @@
               </button>
               <div class="pop-up dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <form action="/" method="POST">
-                      <div class="text-center">
-                        <h1 class="header3">Hello <%= currentUser.username %>!</h1>
-                        <a href="/users/orders" class="btn btn-primary orders-button">Orders</a>
+                      <div>
+                        <h1 class="header3 text-center">Hello <%= currentUser.username %>!</h1>
+                        <button type="button" class="btn btn-primary signup-button text-center"><a style="color:white" href="/users/orders">Orders</a></button>
                         <input name="action" type="submit" class="btn btn-primary logout-button text-center" value="Logout"/>
                       </div>
                     </form>
