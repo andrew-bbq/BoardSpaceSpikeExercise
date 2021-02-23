@@ -51,6 +51,9 @@
           <li>
             Order placed at <%= order.time %>
           </li>
+          <li>
+            Pick up order at: <%=new Date(order.time .getTime() + 20*60000);%>
+          </li>
         </ul>
     </div>
   </div>
