@@ -22,7 +22,7 @@
         <h1 class="header2 text-center">Orders</h1>
       </div>
     </div>
-    <div class="col-lg-12 box" style="padding-left: 1em;">
+    <div class="col-lg-12 box orderlist" style="padding-left: 1em; padding-right: 1em; line-height: 1em;">
       <table style="width: 100%">
         <% orders.forEach(function(order){  %>
         <tr>
@@ -36,13 +36,14 @@
             <%= numItems %> items ordered for $<%= order.price %>
 
           </td>
-          <td>
+          <td class="text-center">
             Status: <%= order.status %>
           </td>
-          <td>
-            <a href="/staff/vieworder?order=<%=order.id%>">View Order</a>
+          <td class="text-center">
+            <button class="main-button col-2 mt-1 mb-1" type="button"><a class="link" href="/staff/vieworder?order=<%=order.id%>">View</a></button>
+            <!-- <a href="/staff/vieworder?order=<%=order.id%>">View Order</a> -->
           </td>
-          <td>
+          <td class="text-right">
             <form action="/staff/orderlist" method="POST">
               <input type="hidden" name="orderId" value="<%=order.id%>" />
               Status: <select name="status" onchange="this.form.submit()">
