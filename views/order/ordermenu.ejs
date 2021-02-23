@@ -18,13 +18,13 @@
   <%- include('partials/topbar', {page: "Order" });%>
     <div class="container mt-3 justify-content-center">
       <div class="row">
-        <div class="card-deck" style="margin:auto">
+        <div class="card-deck justify-content-center" style="margin:auto">
           <% menuItems.forEach(function(menuItem) { %>
             <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
-              <img style = "border-radius: 25px 25px 25px 0px;"class="card-img-top"
+              <img style="border-radius: 25px 25px 25px 0px;" class="card-img-top"
                 src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
                 alt="Card image cap">
-              <div class="card-body">
+              <div class="card-body" style="position:relative">
                 <h5 class="card-title">
                   <%=menuItem.name%>
                 </h5>
@@ -37,7 +37,9 @@
                   <%=menuItem.inStock?"":"Out of stock"%>
                 </div>
                 <% if(menuItem.inStock) { %>
-                  <div class="col-4">
+                  <div style="height: 40px">
+                  </div>
+                  <div class="cardButton">
                     <form action="/order/ordermenu" method="POST">
                       <input type="hidden" name="itemId" value="<%=menuItem.id%>" />
                       <input type="hidden" name="itemPrice" value="<%=menuItem.price%>" />
@@ -45,7 +47,6 @@
                       <input class="main-button" type="submit" value="Add to cart" />
                     </form>
                   </div>
-
                   <% } %>
               </div>
             </div>
