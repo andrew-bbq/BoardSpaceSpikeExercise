@@ -11,6 +11,18 @@
     <link rel='stylesheet' href="/stylesheets/navbar.css" />
   </head>
 
+  <style>
+    ul {
+      padding-left: 2%;
+      width: 96%;
+    }
+    ul li {
+      padding: 12px;
+      font-size: 18px;
+      display: block;
+      position: relative;
+    }
+</style>
 <body>
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart"});%>
@@ -26,27 +38,20 @@
               <h1 class="sub-header">Ordered Items</h1>
               <ul>
               <% menuItems.forEach(function(menuItem) { %>
-                  <li><%= menuItem.count %>x <%=menuItem.name%></li>
+                  <li class= "cart-item"><%= menuItem.count %>x <%=menuItem.name%></li>
               <% }); %>
               </ul>
             </div>
         </div>
-        <div class="row">
-            <h1 class="sub-header">Payment and Tracking</h1>
-            <div class="col-sm-12">
-                $<%=order.price%> paid for with card ending in <%=cardNumber%>
-            </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-              Status: <%= order.status %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-              Order placed at <%= order.time %>
-          </div>
-        </div>
+        <h1 class="sub-header">Payment and Tracking</h1>
+        <ul style = "line-height:20px;">
+          <li class = "cart-item" style = "padding-bottom:0">
+              $<%=order.price%> paid for with card ending in <%=cardNumber%> 
+          </li>
+          <li>
+            Order placed at <%= order.time %>
+          </li>
+        </ul>
     </div>
   </div>
 </body>

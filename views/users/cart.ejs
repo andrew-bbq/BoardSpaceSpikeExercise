@@ -61,40 +61,54 @@
 
 <body>
   <!-- Topbar -->
-  <%- include('partials/topbar', {page: "Cart"});%>
-  <div class="box">
-    <ul id="cartList">
-      <% let subtotal=0 %>
-        <% for (let itemId in cart) { console.log(itemId); %>
-          <li>
-            <form action="/users/cart" method="POST">
-              <% let tempPrice=cart[itemId].price * cart[itemId].count; subtotal +=tempPrice; %>
-                <%=cart[itemId].count%>x <%=cart[itemId].name%> <span style="position: absolute; right: 40px;">$
-                      <%=tempPrice.toFixed(2)%> <input type="hidden" name="itemId" value="<%=itemId%>" />
-                        <input type="submit" value="X" /></span>
-            </form>
+  <%- include('partials/topbar', {page: "Cart" });%>
+    <div class="box">
+      <h1 class="sub-header">Cart</h1>
+      <ul id="cartList">
+        <% let subtotal=0 %>
+          <% for (let itemId in cart) { console.log(itemId); %>
+            <li>
+              <form action="/users/cart" method="POST">
+                <span class="cart-item">
+                  <% let tempPrice=cart[itemId].price * cart[itemId].count; subtotal +=tempPrice; %>
+                    <%=cart[itemId].count%>x <%=cart[itemId].name%>
+                </span>
+                <span class="cart-item2" style="float:right">$ <%=tempPrice.toFixed(2)%>
+                    <input type="hidden" name="itemId" value="<%=itemId%>" />
+                    <input style="width:20px; height:20px" type="image" value="X"
+                      src="http://iconsetc.com/icons-watermarks/simple-black/bfa/bfa_trash-o/bfa_trash-o_simple-black_512x512.png" />
+                </span>
+              </form>
+            </li>
+            <% } %>
+      </ul>
+      <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
+        <ul>
+          <li class="priceDisplay cart-item" id="subTotalDisplay">
+            <span style="position: relative; left: 3%;">Subtotal:</span>
+            <span style = "float:right"> $<%= (subtotal).toFixed(2); %></span>
           </li>
-          <% } %>
-    </ul>
-    <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
-      <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%=
-            (subtotal).toFixed(2); %></span></div>
-      <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%=
-            (salesTax).toFixed(2); %></span></div>
-      <div class="priceDisplay" id="tipDisplay"><span style="position: relative; left: 3%;">Forced Tip: $<%=
-            (tip).toFixed(2); %></span></div>
-      <div class="priceDisplay" id="totalDisplay"><span style="position: relative; left: 3%;">Total: $<%= (subtotal +
-            salesTax + tip).toFixed(2); %></span></div>
-      <br />
-  </div>
-  <br />
-  <div class="text-center align-center">
-    <% if (subtotal> 0) { %>
-      <form action="/order/startorder" method="POST">
-        <input type="submit" id="orderButton" class="main-button text-center" value="Place Order" />
-      </form>
-      <% } %>
-  </div>
+          <li class="priceDisplay cart-item" id="taxDisplay">
+            <span style="position: relative; left: 3%;">Sales Tax:</span>
+            <span style = "float:right">$<%=(salesTax).toFixed(2); %></span>
+          </li>
+          <li class="priceDisplay cart-item" id="tipDisplay">
+            <span style="position: relative; left: 3%;">Forced Tip:</span>
+            <span style = "float:right">$<%= (tip).toFixed(2); %></span>
+          </li>
+          <li class="priceDisplay cart-item" id="totalDisplay">
+            <span style="position: relative; left: 3%;">Total:</span>
+            <span style = "float:right">$<%=(subtotal + salesTax + tip).toFixed(2); %></span>
+            </li>
+          <div class="text-right" style="margin-right: 2.5%;">
+            <% if (subtotal> 0) { %>
+              <form action="/order/startorder" method="POST">
+                <input type="submit" id="orderButton" class="main-button mt-2 mb-3" value="Place Order" />
+              </form>
+              <% } %>
+          </div>
+        </ul>
+    </div>
 </body>
 <script src="/javascripts/global.js"></script>
 

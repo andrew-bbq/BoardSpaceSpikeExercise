@@ -18,17 +18,17 @@
   <%- include('partials/topbar', {page: "Order" });%>
     <div class="container mt-3 justify-content-center">
       <div class="row">
-        <div class="card-deck" style="margin:auto">
+        <div class="card-deck justify-content-center" style="margin:auto">
           <% menuItems.forEach(function(menuItem) { %>
             <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
-              <img style = "border-radius: 25px 25px 25px 0px;"class="card-img-top"
+              <img class="card-img-top"
                 src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
                 alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">
                   <%=menuItem.name%>
                 </h5>
-                <div class="card-title"> - $<%=menuItem.price%>
+                <div class="card-title"> $<%=menuItem.price%>
                 </div>
                 <p class="card-text" style="line-height: 1em;">
                   <%=menuItem.description%>
