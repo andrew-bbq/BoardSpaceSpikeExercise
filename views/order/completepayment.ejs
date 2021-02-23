@@ -20,7 +20,6 @@
         }
 
         ul li {
-
             border-bottom: 1px solid #000;
             padding: 12px;
             font-size: 18px;
@@ -61,44 +60,72 @@
 
 <body>
     <!-- Topbar -->
-    <%- include('partials/topbar', {page: "Cart"});%>
-
-    <div class="box">
-        <ul id="cartList">
-            <% let subtotal=0 %>
-                <% for (let itemId in cart) { console.log(itemId); %>
-                    <li>
-                        <% let tempPrice=cart[itemId].price * cart[itemId].count; subtotal +=tempPrice; %>
-                            <%=cart[itemId].count%>x <%=cart[itemId].name%> <span
-                                        style="position: absolute; right: 40px;">$<%=tempPrice.toFixed(2)%>
-                                            </form>
+    <%- include('partials/topbar', {page: "Cart" });%>
+        <div class="box">
+            <h1 class="sub-header">Cart</h1>
+            <ul id="cartList">
+                <% let subtotal=0 %>
+                    <% for (let itemId in cart) { console.log(itemId); %>
+                        <li>
+                            <form action="/users/cart" method="POST">
+                                <span class="cart-item">
+                                    <% let tempPrice=cart[itemId].price * cart[itemId].count; subtotal +=tempPrice; %>
+                                        <%=cart[itemId].count%>x <%=cart[itemId].name%>
+                                </span>
+                                <span class="cart-item2" style="float:right">$ <%=tempPrice.toFixed(2)%>
+                                        <input type="hidden" name="itemId" value="<%=itemId%>" />
+                                        <input style="width:20px; height:20px" type="image" value="X"
+                                            src="http://iconsetc.com/icons-watermarks/simple-black/bfa/bfa_trash-o/bfa_trash-o_simple-black_512x512.png" />
+                                </span>
+                            </form>
+                        </li>
+                        <% } %>
+            </ul>
+            <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
+                <ul>
+                    <li class="priceDisplay cart-item" id="subTotalDisplay">
+                        <span style="position: relative; left: 3%;">Subtotal:</span>
+                        <span style="float:right"> $<%= (subtotal).toFixed(2); %></span>
                     </li>
-                    <% } %>
-        </ul>
-        <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
-            <div class="float-right mt-4" style="margin-right:5vw"><select class="form-control" onchange="document.getElementById('hiddenpickup').value = this.value; document.getElementById('car-input').style.display = ((this.value ==1) ? 'block': 'none');"><option value="1">Pickup</option><option value="0">Delivery</option></select></div>
-            <div id="car-input" class="float-right mt-4" style="margin-right:5vw"><input placeholder="Car description" class="form-control" oninput="document.getElementById('hiddencar').value = this.value" /></div>
-            <div class="priceDisplay" id="subTotalDisplay"><span style="position: relative; left: 3%;">Subtotal: $<%=
-                        (subtotal).toFixed(2); %></span></div>
-            <div class="priceDisplay" id="taxDisplay"><span style="position: relative; left: 3%;">Sales Tax: $<%=
-                        (salesTax).toFixed(2); %></span></div>
-            <div class="priceDisplay" id="tipDisplay"><span style="position: relative; left: 3%;">Forced Tip: $<%=
-                        (tip).toFixed(2); %></span></div>
-            <div class="priceDisplay" id="totalDisplay"><span style="position: relative; left: 3%;">Total: $<%=
-                        (subtotal + salesTax + tip).toFixed(2); %></span></div>
-            <br />
-    </div>
-    <br />
-
-    <div class="text-center align-center">
-        <form action="/order/completepayment" method="POST">
-            <input type="hidden" id="hiddencar" name="car" value="" />
-            <input type="hidden" id="hiddenpickup" name="pickup" value="1" />
-            <input type="hidden" name="price" value="<%=(subtotal + salesTax + tip).toFixed(2)%>" />
-            <input type="hidden" name="card" value="<%=card.id%>" />
-            <input type="submit" id="orderButton" class="main-button text-center" value="Confirm Order" />
-        </form>
-    </div>
+                    <li class="priceDisplay cart-item" id="taxDisplay">
+                        <span style="position: relative; left: 3%;">Sales Tax:</span>
+                        <span style="float:right">$<%=(salesTax).toFixed(2); %></span>
+                    </li>
+                    <li class="priceDisplay cart-item" id="tipDisplay">
+                        <span style="position: relative; left: 3%;">Forced Tip:</span>
+                        <span style="float:right">$<%= (tip).toFixed(2); %></span>
+                    </li>
+                    <li class="priceDisplay cart-item" id="totalDisplay">
+                        <span style="position: relative; left: 3%;">Total:</span>
+                        <span style="float:right">$<%=(subtotal + salesTax + tip).toFixed(2); %></span>
+                    </li>
+                    <li style = "border-bottom: none;">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                <select  class="form-control"
+                                    onchange="document.getElementById('hiddenpickup').value = this.value; 
+                                    document.getElementById('car-input').style.display = ((this.value ==1) ? 'block': 'none');">
+                                    <option value="1">Pickup</option>
+                                    <option value="0">Delivery</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                <input placeholder="Car description" class="form-control"
+                                oninput="document.getElementById('hiddencar').value = this.value" />
+                            </div>
+                        </div>
+                    </li>
+                    <div class="text-right" style="margin-right: 2.5%;">
+                        <form action="/order/completepayment" method="POST">
+                            <input type="hidden" id="hiddencar" name="car" value="" />
+                            <input type="hidden" id="hiddenpickup" name="pickup" value="1" />
+                            <input type="hidden" name="price" value="<%=(subtotal + salesTax + tip).toFixed(2)%>" />
+                            <input type="hidden" name="card" value="<%=card.id%>" />
+                            <input type="submit" id="orderButton" class="main-button" value="Confirm" />
+                        </form>
+                    </div>
+                </ul>
+        </div>
 </body>
 <script src="/javascripts/global.js"></script>
 
