@@ -399,6 +399,15 @@ li {
   /* bottom:10px; */
   color: rgb(0, 0, 0);
 }
+
+td {
+  white-space: normal !important; 
+  word-wrap: break-word;  
+}
+table {
+  table-layout: fixed;
+}
+
 @media (max-width: 500px) {
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
   .cart-item2{
@@ -415,6 +424,13 @@ li {
   }
   .header1{
     font-size:3em;
+  }
+  .orderlist{
+    width: 410px;
+    font-size: 0.5em;
+  }
+  table{
+    min-width: 400px;
   }
 }
 
