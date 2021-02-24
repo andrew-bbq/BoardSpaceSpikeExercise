@@ -25,6 +25,18 @@ router.get('/orderlist', function (req, res, next) {
     });
 });
 
+router.post('/query',function (req, res, next) {
+    // only admins and staff can view this page
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
+    }
+    let startdate = req.body.queryStartDate;
+    let enddate = req.body.queryEndDate;
+    Order.find({time: {$gte: startdate, $lte: enddate}}, function (err, orders) {
+        return res.render('orderlist', { orders: orders });
+    });
+});
+
 router.get('/vieworder', function(req, res, next) {
     if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
         return res.redirect('/');
@@ -102,7 +114,7 @@ router.post('/printViewOrder', function (req, res, next) {
 
     doc.text("Order#: " + req.body.orderId);
     doc.text("Items: " + req.body.itemList);
-    doc.text("Amount Paid: " + req.body.orderPrice);
+    doc.text("Amount Paid: $" + req.body.orderPrice);
     doc.text("Paid with card ending in: " + req.body.cardNumber);
 
     

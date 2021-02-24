@@ -191,7 +191,7 @@ router.post('/print', function (req, res, next) {
 
     doc.text("Order#: " + req.body.orderId);
     doc.text("Items: " + req.body.itemList);
-    doc.text("Amount Paid: " + req.body.orderPrice);
+    doc.text("Amount Paid: $" + req.body.orderPrice);
     doc.text("Paid with card ending in: " + req.body.cardNumber);
 
     
