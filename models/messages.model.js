@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let MessagesSchema = new Schema({
-    userID: {
+    userId: {
         type: mongoose.ObjectId,
         required: true
     },
