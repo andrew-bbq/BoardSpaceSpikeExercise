@@ -22,6 +22,15 @@
         <h1 class="header2 text-center">Orders</h1>
       </div>
     </div>
+    <div>
+      <form method="POST" action="/staff/query">
+        <label>Start date(on or after this date):</label>
+        <input type="date" name="queryStartDate">
+        <label>End date(before this date):</label>
+        <input type="date" name="queryEndDate">
+        <input type="submit" id="queryButton" class="main-button" value="Search" />
+      </form>
+    </div>
     <div class="col-lg-12 box orderlist" style="padding-left: 1em; padding-right: 1em; line-height: 1em;">
       <table style="width: 100%">
         <% orders.forEach(function(order){  %>
