@@ -131,9 +131,14 @@ li {
 }
 
 .main-button:hover {
-  transition-duration: 0.4s;
+  transition-duration: 0.2s;
   background-color: #38761d;
   color: #FFF;
+}
+
+.main-button:active {
+  transform: translateY(4px);
+  box-shadow: 0px 1px 4px #000;
 }
 
 .carousel-image {
