@@ -63,7 +63,15 @@
                         class="nav-item nav-link nav-button"
                         <% } %>>Edit Menu
                     </a>
-                    <% } %>
+                    <% } %>      
+                        <%if(currentUser && (currentUser.role=='staff' || currentUser.role=='admin')) { %>
+                          <a href="/staff/orderlist" <% if(active=='OrderList' ){ %>
+                            class="nav-item nav-link nav-button disabled"
+                            <% } else{ %>
+                              class="nav-item nav-link nav-button"
+                              <% } %>>Order List
+                          </a>
+                          <% } %>
     </div>
   </div>
 </nav>
