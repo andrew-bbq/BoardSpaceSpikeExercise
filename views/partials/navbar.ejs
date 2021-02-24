@@ -65,13 +65,21 @@
                     </a>
                     <% } %>      
                         <%if(currentUser && (currentUser.role=='staff' || currentUser.role=='admin')) { %>
-                          <a href="/staff/orderlist" <% if(active=='OrderList' ){ %>
+                          <a href="/staff/orderlist" <% if(active=='orderlist' ){ %>
                             class="nav-item nav-link nav-button disabled"
                             <% } else{ %>
                               class="nav-item nav-link nav-button"
                               <% } %>>Order List
                           </a>
-                          <% } %>
+                          <% } %>      
+                            <%if(currentUser && currentUser.role=='admin') { %>
+                              <a href="/users/viewusers" <% if(active=='ViewUsers' ){ %>
+                                class="nav-item nav-link nav-button disabled"
+                                <% } else{ %>
+                                  class="nav-item nav-link nav-button"
+                                  <% } %>>User List
+                              </a>
+                              <% } %>
     </div>
   </div>
 </nav>
