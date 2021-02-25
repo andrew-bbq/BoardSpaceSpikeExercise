@@ -79,7 +79,15 @@
                                   class="nav-item nav-link nav-button"
                                   <% } %>>User List
                               </a>
-                              <% } %>
+                              <% } %>      
+                                <%if(currentUser && currentUser.role=='admin') { %>
+                                  <a href="/staff/usagereport" <% if(active=='usagereport' ){ %>
+                                    class="nav-item nav-link nav-button disabled"
+                                    <% } else{ %>
+                                      class="nav-item nav-link nav-button"
+                                      <% } %>>Usage Report
+                                  </a>
+                                  <% } %>
     </div>
   </div>
 </nav>
