@@ -250,7 +250,6 @@ router.post('/printViewOrder', function (req, res, next) {
                 if (err) {
                     next(err);
                 }
-                return res.redirect(url.format({ pathname: "/order/trackorder", query: { "order": req.body.orderId } }));
             });
         });
     });
