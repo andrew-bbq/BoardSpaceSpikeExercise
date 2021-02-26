@@ -5,12 +5,12 @@ const Messages = mongoose.model('Messages');
 
 // admin access
 router.post('/staffmessages', function(req, res, next) {
-    Messages.count({userId: req.session.user._id}, function(err, count) {
+    Messages.count({userId: req.body.userId}, function(err, count) {
         console.log(count);
         if(count == 0) {
             if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
                 let MessageData = {
-                    userId: req.session.user._id,
+                    userId: req.body.userId,
                     messages: [{sentByUser: false, message: req.body.message, time: Date.now()}]
                 };
             }
@@ -20,15 +20,15 @@ router.post('/staffmessages', function(req, res, next) {
                     if(err){
                         return next(err);
                     }
-                    res.redirect('/messages/staffmessages');
+                    res.redirect('/messages/staffmessages?userId='+ req.body.userId);
                 });
         }
         else {
             if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
-                Messages.findOneAndUpdate({userId: req.session.user._id},
+                Messages.findOneAndUpdate({userId: req.body.userId},
                 {$push: {messages: {sentByUser: false, message: req.body.message, time: Date.now()}}},
                 function (err, messages) {
-                    res.redirect('/messages/staffmessages');
+                    res.redirect('/messages/staffmessages?userId='+ req.body.userId);
                 });
             }
         }
@@ -70,8 +70,11 @@ router.get('/staffmessages', function(req, res, next) {
         return res.redirect('/');
     }
     Messages.findOne({userId: req.query.userId}, function(err, messages) {
+        if(err) {
+            next(err);
+        }
         let cleanMessages = messages ? messages.messages : [];
-        res.render('staffmessages', {messages: cleanMessages});
+        res.render('staffmessages', {messages: cleanMessages, userId: req.query.userId});
     });
 });
 

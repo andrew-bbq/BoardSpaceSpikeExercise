@@ -1,32 +1,60 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Custom Style Sheets -->
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
-    <link rel='stylesheet' href="/stylesheets/navbar.css" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Staff Messages</title>
-  </head>
+  <!-- Custom Style Sheets -->
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
+  <link rel='stylesheet' href="/stylesheets/navbar.css" />
 
-  <body>
+  <title>Messages</title>
+</head>
 
-    <%- include('partials/topbar', {page: "StaffMessages" });%>
-    <h3>Send a Message:</h3>
+<body>
 
-        <form action=staffmessages method="POST">
-            <input name="message"><br>
-            <input name="action" type="submit" value="Send">
-        </form>
 
-    <% messages.forEach(function(message) { %>
-            <%= message.message %>
-    <% }); %>
+  <%- include('partials/topbar', {page: "Messages" });%>
+    <div class="container">
+      <div class="row">
+        <div class="sub-header col-lg-12">
+          <h3>Message our staff:</h3>
+        </div>
+      </div>
+      <% messages.forEach(function(message) { %>
+        <div class="row" style="line-height:3em;">
+          <% if(!message.sentByUser) { %>
+            <div class="col-6 offset-6 text-right">
+            <p class="user-text-message text-message float-right" title="<%=new Date(message.time).toString()%>">
+                <%= message.message %>
+            </p>
+            </div>
+            <% } else { %>
+              <div class="col-6 text-left">
+                <p class="other-text-message text-message float-left" title="<%=new Date(message.time).toString()%>">
+                    <%= message.message %>
+                </p>
+                </div>
+              <% } %>
+        </div>
+        <% }); %>
+          <form action="/messages/staffmessages" method="POST">
+            <div class="row">
+              <div class="col-md-9">
+                <input type="hidden" name="userId" value="<%=userId%>" />
+                <input name="message" class="form-control" autofocus="autofocus" />
+              </div>
+              <div class="col-md-3 text-center">
+                <input class="main-button" name="action" type="submit" value="Send" />
+              </div>
+            </div>
+          </form>
+    </div>
+</body>
+<script src="/javascripts/global.js"></script>
 
-    </body>
-    <script src="/javascripts/global.js"></script>
 </html>

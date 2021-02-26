@@ -72,6 +72,7 @@
             <li>
               Order placed at <%= order.time %>
             </li>
+            <li><a href="/messages/staffmessages?userId=<%=order.userId%>" class="btn btn-primary">Contact User</a></li>
           </ul>
           <div class="text-right" style="margin-right: 2.5%;">
             <form method="POST" action="/staff/printViewOrder">
