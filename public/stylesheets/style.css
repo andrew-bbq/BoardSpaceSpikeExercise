@@ -134,6 +134,8 @@ li {
   transition-duration: 0.2s;
   background-color: #38761d;
   color: #FFF;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .main-button:active {
@@ -332,6 +334,7 @@ li {
 .account-button {
   color: #6aa84f; 
   margin-top: 17%;
+  cursor: pointer;
 }
 
 .account-button-bkg {
@@ -473,6 +476,9 @@ table {
   .navbar-brand{
     position: absolute;
   }
+  .divider{
+    display:none;
+  }
 }
 
 .text-message {
@@ -489,4 +495,10 @@ table {
 
 .other-text-message {
   background-color: lightgrey;
+}
+
+@media (max-width: 580px) {
+  .tableHeader {
+    display:none;
+  }
 }
