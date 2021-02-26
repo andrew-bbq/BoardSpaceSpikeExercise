@@ -34,7 +34,7 @@
             </p>
             </div>
             <% } else { %>
-              <div class="col-6 offset-6 text-right">
+              <div class="col-6 text-left">
                 <p class="other-text-message text-message float-left" title="<%=new Date(message.time).toString()%>">
                     <%= message.message %>
                 </p>
@@ -42,7 +42,7 @@
               <% } %>
         </div>
         <% }); %>
-          <form action=messages method="POST">
+          <form action="/messages/messages" method="POST">
             <div class="row">
               <div class="col-md-9">
                 <input name="message" class="form-control" autofocus="autofocus" />
