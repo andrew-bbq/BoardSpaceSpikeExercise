@@ -6,7 +6,6 @@ const Messages = mongoose.model('Messages');
 // admin access
 router.post('/staffmessages', function(req, res, next) {
     Messages.count({userId: req.body.userId}, function(err, count) {
-        console.log(count);
         if(count == 0) {
             if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
                 let MessageData = {
@@ -38,7 +37,6 @@ router.post('/staffmessages', function(req, res, next) {
 // user access
 router.post('/messages', function(req, res, next) {
     Messages.count({userId: req.session.user._id}, function(err, count) {
-        console.log(count);
         if(count == 0) {
             let MessageData = {
                 userId: req.session.user._id,

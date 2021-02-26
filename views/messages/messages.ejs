@@ -22,38 +22,74 @@
     <div class="container">
       <div class="row">
         <div class="sub-header col-lg-12">
-          <h3>Message our staff:</h3>
+          <h3>Message user:</h3>
         </div>
       </div>
-      <% messages.forEach(function(message) { %>
-        <div class="row" style="line-height:3em;">
-          <% if(message.sentByUser) { %>
-            <div class="col-6 offset-6 text-right">
-            <p class="user-text-message text-message float-right" title="<%=new Date(message.time).toString()%>">
-                <%= message.message %>
-            </p>
-            </div>
-            <% } else { %>
-              <div class="col-6 text-left">
-                <p class="other-text-message text-message float-left" title="<%=new Date(message.time).toString()%>">
-                    <%= message.message %>
+      <div id="messagebox">
+        <% messages.forEach(function(message) { %>
+          <div class="row" style="line-height:3em;">
+            <% if(message.sentByUser) { %>
+              <div class="col-6 offset-6 text-right">
+                <p class="user-text-message text-message float-right" title="<%=new Date(message.time).toString()%>">
+                  <%= message.message %>
                 </p>
+              </div>
+              <% } else { %>
+                <div class="col-6 text-left">
+                  <p class="other-text-message text-message float-left" title="<%=new Date(message.time).toString()%>">
+                    <%= message.message %>
+                  </p>
                 </div>
-              <% } %>
+                <% } %>
+          </div>
+          <% }); %>
+      </div>
+      <form action="/messages/messages" method="POST" id="message-form">
+        <div class="row">
+          <div class="col-md-9">
+            <input id="userId" type="hidden" value="<%=currentUser._id%>" />
+            <input id="message" name="message" class="form-control" autofocus="autofocus" />
+          </div>
+          <div class="col-md-3 text-center">
+            <input class="main-button" name="action" type="submit" value="Send" />
+          </div>
         </div>
-        <% }); %>
-          <form action="/messages/messages" method="POST">
-            <div class="row">
-              <div class="col-md-9">
-                <input name="message" class="form-control" autofocus="autofocus" />
-              </div>
-              <div class="col-md-3 text-center">
-                <input class="main-button" name="action" type="submit" value="Send" />
-              </div>
-            </div>
-          </form>
+      </form>
     </div>
 </body>
+
 <script src="/javascripts/global.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  let userId = document.getElementById("userId").value;
+  let messageForm = document.getElementById("message-form");
+
+  socket.on("ReceiveMessage", function (data) {
+    if(data.userId != userId || data.userSent) {
+      return;
+    }
+    let messageBox = document.getElementById("messagebox");
+    let rowDiv = document.createElement("div");
+    rowDiv.style.lineHeight = "3em";
+    rowDiv.classList.add("row");
+    let colDiv = document.createElement("div");
+    colDiv.classList.add("col-6");
+    colDiv.classList.add("text-left");
+    let pTag = document.createElement("p");
+    pTag.classList.add("other-text-message");
+    pTag.classList.add("text-message");
+    pTag.classList.add("float-left");
+    pTag.title = new Date(data.time).toString();
+    pTag.innerText = data.message;
+    colDiv.appendChild(pTag);
+    rowDiv.appendChild(colDiv);
+    messageBox.appendChild(rowDiv);
+  });
+
+  messageForm.onsubmit = function() {
+    socket.emit("SendMessage", {userId: userId, message: document.getElementById("message").value, userSent: true, time: Date.now()});
+  }
+</script>
 
 </html>

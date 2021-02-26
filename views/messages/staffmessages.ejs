@@ -25,6 +25,7 @@
           <h3>Message our staff:</h3>
         </div>
       </div>
+      <div id="messagebox">
       <% messages.forEach(function(message) { %>
         <div class="row" style="line-height:3em;">
           <% if(!message.sentByUser) { %>
@@ -42,11 +43,12 @@
               <% } %>
         </div>
         <% }); %>
-          <form action="/messages/staffmessages" method="POST">
+      </div>
+          <form id="message-form" action="/messages/staffmessages" method="POST">
             <div class="row">
               <div class="col-md-9">
-                <input type="hidden" name="userId" value="<%=userId%>" />
-                <input name="message" class="form-control" autofocus="autofocus" />
+                <input id="userId" type="hidden" name="userId" value="<%=userId%>" />
+                <input id="message" name="message" class="form-control" autofocus="autofocus" />
               </div>
               <div class="col-md-3 text-center">
                 <input class="main-button" name="action" type="submit" value="Send" />
@@ -56,5 +58,38 @@
     </div>
 </body>
 <script src="/javascripts/global.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  let userId = document.getElementById("userId").value;
+  let messageForm = document.getElementById("message-form");
+  socket.on("ReceiveMessage", function (data) {
+    console.log(data);
+    if(data.userId != userId || !data.userSent) {
+      return;
+    }
+    let messageBox = document.getElementById("messagebox");
+    let rowDiv = document.createElement("div");
+    rowDiv.style.lineHeight = "3em";
+    rowDiv.classList.add("row");
+    let colDiv = document.createElement("div");
+    colDiv.classList.add("col-6");
+    colDiv.classList.add("text-left");
+    let pTag = document.createElement("p");
+    pTag.classList.add("other-text-message");
+    pTag.classList.add("text-message");
+    pTag.classList.add("float-left");
+    pTag.title = new Date(data.time).toString();
+    pTag.innerText = data.message;
+    colDiv.appendChild(pTag);
+    rowDiv.appendChild(colDiv);
+    messageBox.appendChild(rowDiv);
+  });
+
+
+  messageForm.onsubmit = function() {
+    socket.emit("SendMessage", {userId: userId, message: document.getElementById("message").value, userSent: false, time: Date.now()});
+  }
+</script>
 
 </html>
