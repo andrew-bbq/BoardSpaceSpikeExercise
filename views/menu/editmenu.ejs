@@ -30,7 +30,7 @@
         <div class="card-deck justify-content-center" style="margin:auto">
           <% menuItems.forEach(function(menuItem) { %>
             <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
-              <img style="border-radius: 25px 25px 25px 25px;" class="card-img-top"
+              <img style="border-radius: 25px 25px 25px 25px;" class="card-img-top image-crop"
                 src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
                 alt="Card image cap">
               <div class="card-body">
@@ -50,8 +50,8 @@
               </div>
               <div class="cardButton">
                 <form action="/menu/editmenu" method="post">
-                  <input type="submit" name="action" value="Edit" />
-                  <input type="submit" name="action" value="Delete" />
+                  <input type="submit" name="action" value="Edit" class="btn" />
+                  <input type="submit" name="action" value="Delete" class="btn" />
                   <select name="instock" onchange="this.form.submit()">
                     <option value="1" <%=menuItem.inStock ? 'selected' :''%>>In Stock</option>
                     <option value="0" <%=!menuItem.inStock ? 'selected' :''%>>Out of stock</option>

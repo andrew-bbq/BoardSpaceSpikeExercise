@@ -3,6 +3,39 @@ var router = express.Router();
 let mongoose = require('mongoose');
 const Messages = mongoose.model('Messages');
 
+// admin access
+router.post('/staffmessages', function(req, res, next) {
+    Messages.count({userId: req.session.user._id}, function(err, count) {
+        console.log(count);
+        if(count == 0) {
+            if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
+                let MessageData = {
+                    userId: req.session.user._id,
+                    messages: [{sentByUser: false, message: req.body.message, time: Date.now()}]
+                };
+            }
+            Messages.create(
+                MessageData,
+                function(err, messages) {
+                    if(err){
+                        return next(err);
+                    }
+                    res.redirect('/messages/staffmessages');
+                });
+        }
+        else {
+            if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
+                Messages.findOneAndUpdate({userId: req.session.user._id},
+                {$push: {messages: {sentByUser: false, message: req.body.message, time: Date.now()}}},
+                function (err, messages) {
+                    res.redirect('/messages/staffmessages');
+                });
+            }
+        }
+    });
+});
+
+// user access
 router.post('/messages', function(req, res, next) {
     Messages.count({userId: req.session.user._id}, function(err, count) {
         console.log(count);
@@ -22,24 +55,38 @@ router.post('/messages', function(req, res, next) {
         }
         else {
             Messages.findOneAndUpdate({userId: req.session.user._id},
-            {$push: {messages: {sentByUser: true, message: req.body.message, time: Date.now()}}},
-            function (err, messages) {
-                res.redirect('/messages/messages');
-            });
+                {$push: {messages: {sentByUser: true, message: req.body.message, time: Date.now()}}},
+                function (err, messages) {
+                    res.redirect('/messages/messages');
+                });
         }
     });
 });
 
+
+// admin access
+router.get('/staffmessages', function(req, res, next) {
+    if(!req.session.user || (req.session.user.role != 'admin' && req.session.user.role != 'staff')) {
+        return res.redirect('/');
+    }
+    Messages.findOne({userId: req.query.userId}, function(err, messages) {
+        let cleanMessages = messages ? messages.messages : [];
+        res.render('staffmessages', {messages: cleanMessages});
+    });
+});
+
+// user access
 router.get('/messages', function(req, res, next) {
     if(!req.session.user) {
         return res.redirect('/');
     }
     Messages.findOne({userId: req.session.user._id}, function(err, messages) {
-        // if (err) {
-        //     console.log(err);
-        //     return res.redirect("/messages/messages");
-        // }
+        if (err) {
+            next(err);
+        }
         let cleanMessages = messages ? messages.messages : [];
+        // sort messages
+        cleanMessages.sort(function(a, b) {return (a.time > b.time) ? 1 : -1});
         res.render('messages', {messages: cleanMessages});
     });
 });

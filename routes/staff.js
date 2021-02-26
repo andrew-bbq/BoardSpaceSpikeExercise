@@ -20,8 +20,32 @@ router.get('/orderlist', function (req, res, next) {
     if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
         return res.redirect('/');
     }
-    Order.find({}, function (err, orders) {
-        res.render('orderlist', { orders: orders });
+    Order.find({}).sort({priority:-1}).exec(function (err, orders) {
+        return res.render('orderlist', { orders: orders });
+    });
+});
+
+// handle status updates
+router.post('/orderlist', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
+    }
+    Order.findByIdAndUpdate({_id: req.body.orderId}, {status: req.body.status}, function(err, order){
+        if (err){
+            return next(err);
+        }
+        return res.redirect('/staff/orderlist')
+    });
+});
+
+// handle priority updates
+router.post('/orderlist/priority', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
+    }
+    Order.findByIdAndUpdate({_id: req.body.orderId}, {priority: req.body.priority}, function(err, order){
+        if (err) return next(err);
+        return res.redirect('/staff/orderlist')
     });
 });
 
@@ -32,7 +56,7 @@ router.post('/query',function (req, res, next) {
     }
     let startdate = req.body.queryStartDate;
     let enddate = req.body.queryEndDate;
-    Order.find({time: {$gte: startdate, $lte: enddate}}, function (err, orders) {
+    Order.find({time: {$gte: startdate, $lte: enddate}}).sort({priority:-1}).exec(function (err, orders) {
         return res.render('orderlist', { orders: orders });
     });
 });
@@ -51,7 +75,7 @@ router.get('/usagereport', function (req, res, next) {
         orderCount = count; 
     });
 
-    Order.find({}, function (err, orders) {
+    Order.find({}).sort({priority:-1}).exec(function (err, orders) {
         if (err) return next(err)
         MenuItem.find({}, function (err, menuItems) {
             if (err) return next(err)
@@ -123,10 +147,21 @@ router.post('/getUsageReport',function (req, res, next) {
         });
     });
 
-    Order.find({/***/ time: {$gte: startdate, $lte: enddate} /***/}, function (err, orders) {
+    Order.find({time: {$gte: startdate, $lte: enddate}}).sort({priority:-1}).exec(function (err, orders) {
         MenuItem.find({},function (err, menuItems) {
             return res.render('usagereport', { orders: orders, orderCount: orderCount, itemOrderCount: itemOrderCount, itemCount: queryItemCount, itemTotalPaid: itemTotalPaid.toFixed(2), menuItems: menuItems});
         });
+    });
+});
+
+// handle priority updates
+router.post('/usagereport/priority', function(req, res, next) {
+    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
+        return res.redirect('/');
+    }
+    Order.findByIdAndUpdate({_id: req.body.orderId}, {priority: req.body.priority}, function(err, order){
+        if (err) return next(err);
+        return res.redirect('/staff/usagereport')
     });
 });
 
@@ -180,25 +215,16 @@ router.post('/vieworder', function(req, res, next) {
     });
 });
 
-// handle status updates
-router.post('/orderlist', function(req, res, next) {
-    if (!req.session.user || (req.session.user.role != User.schema.path('role').enumValues[0] && req.session.user.role != User.schema.path('role').enumValues[2])) {
-        return res.redirect('/');
-    }
-    Order.findByIdAndUpdate({_id: req.body.orderId}, {status: req.body.status}, function(err, order){
-        if (err){
-            return next(err);
-        }
-        return res.redirect('/staff/orderlist')
-    });
-});
+
 
 router.post('/printViewOrder', function (req, res, next) {
     // Create a document
     const doc = new PDFDocument;
 
+    let file = __dirname + '/../Receipts/ReceiptForOrder'+req.body.orderId+'.pdf';
     // pipe document to receipt pdf filestream
-    doc.pipe(fs.createWriteStream('./Receipts/ReceiptForOrder'+req.body.orderId+'.pdf'));
+    let writeStream = fs.createWriteStream(file)
+    doc.pipe(writeStream);
     
     doc.fontSize(30);
     doc.text("Thank you for ordering with BadgerBytes!");
@@ -215,7 +241,18 @@ router.post('/printViewOrder', function (req, res, next) {
     doc.text("Pickup Time: " + req.body.pickupTime);
 
     doc.end();
-    return res.redirect(url.format({ pathname: "/staff/vieworder", query: { "order": req.body.orderId } }))
+    writeStream.on('finish', function () {
+        res.download(file, "Receipt-"+req.body.orderId+".pdf", (err) => {
+            if(err) {
+                next(err);
+            }
+            fs.unlink(file, (err) => {
+                if (err) {
+                    next(err);
+                }
+            });
+        });
+    });
 });
 
 module.exports = router;
