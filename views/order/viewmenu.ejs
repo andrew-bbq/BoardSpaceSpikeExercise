@@ -21,7 +21,7 @@
         <div class="card-deck justify-content-center" style="margin:auto">
           <% menuItems.forEach(function(menuItem) { %>
             <div class="card mb-4 box" style="padding:0;min-width: 18rem; max-width: 18rem;">
-              <img class="card-img-top"
+              <img class="card-img-top image-crop"
                 src="data:<%=menuItem.image.contentType%>;base64,<%=menuItem.image.data.toString('base64')%>"
                 alt="Card image cap">
               <div class="card-body">

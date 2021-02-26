@@ -457,3 +457,19 @@ table {
     position: absolute;
   }
 }
+
+.text-message {
+  border-radius: 25px;
+  padding: 8px 20px 8px 20px;
+  font-family: "Comfortaa", sans-serif;
+  display: table;
+}
+
+
+.user-text-message {
+  background-color: skyblue;
+}
+
+.other-text-message {
+  background-color: lightgrey;
+}

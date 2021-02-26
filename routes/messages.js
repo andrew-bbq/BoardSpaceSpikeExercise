@@ -81,11 +81,12 @@ router.get('/messages', function(req, res, next) {
         return res.redirect('/');
     }
     Messages.findOne({userId: req.session.user._id}, function(err, messages) {
-        // if (err) {
-        //     console.log(err);
-        //     return res.redirect("/messages/messages");
-        // }
+        if (err) {
+            next(err);
+        }
         let cleanMessages = messages ? messages.messages : [];
+        // sort messages
+        cleanMessages.sort(function(a, b) {return (a.time > b.time) ? 1 : -1});
         res.render('messages', {messages: cleanMessages});
     });
 });
