@@ -10,19 +10,6 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-<style>
-  ul {
-    padding-left: 2%;
-    width: 96%;
-  }
-  ul li {
-    padding: 12px;
-    font-size: 18px;
-    display: block;
-    position: relative;
-    line-height: 20px
-  }
-</style>
 <body>
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart" });%>
@@ -33,7 +20,7 @@
         </div>
       </div>
       <div class="row box"> 
-        <ul>
+        <ul class = "list">
           <% cards.forEach(function(card) { %>
           
           <li class="cart-item">

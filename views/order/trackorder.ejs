@@ -11,18 +11,6 @@
     <link rel='stylesheet' href="/stylesheets/navbar.css" />
   </head>
 
-  <style>
-    ul {
-      padding-left: 2%;
-      width: 96%;
-    }
-    ul li {
-      padding: 12px;
-      font-size: 18px;
-      display: block;
-      position: relative;
-    }
-</style>
 <body>
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart"});%>
@@ -36,7 +24,7 @@
         <div class="row">
             <div class="col-sm-12">
               <h1 class="sub-header">Ordered Items</h1>
-              <ul>
+              <ul class = "list">
               <% menuItems.forEach(function(menuItem) { %>
                   <li class= "cart-item"><%= menuItem.count %>x <%=menuItem.name%></li>
               <% }); %>
@@ -44,7 +32,7 @@
             </div>
         </div>
         <h1 class="sub-header">Payment and Tracking</h1>
-        <ul style = "line-height:20px;">
+        <ul class = "list" style = "line-height:20px;">
           <li class = "cart-item" style = "padding-bottom:0">
               $<%=order.price%> paid for with card ending in <%=cardNumber%> 
           </li>
