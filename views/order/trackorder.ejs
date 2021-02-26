@@ -11,18 +11,6 @@
     <link rel='stylesheet' href="/stylesheets/navbar.css" />
   </head>
 
-  <style>
-    ul {
-      padding-left: 2%;
-      width: 96%;
-    }
-    ul li {
-      padding: 12px;
-      font-size: 18px;
-      display: block;
-      position: relative;
-    }
-</style>
 <body>
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart"});%>
@@ -36,7 +24,7 @@
         <div class="row">
             <div class="col-sm-12">
               <h1 class="sub-header">Ordered Items</h1>
-              <ul>
+              <ul class = "list">
               <% menuItems.forEach(function(menuItem) { %>
                   <li class= "cart-item"><%= menuItem.count %>x <%=menuItem.name%></li>
               <% }); %>
@@ -44,16 +32,22 @@
             </div>
         </div>
         <h1 class="sub-header">Payment and Tracking</h1>
-        <ul style = "line-height:20px;">
+        <ul class = "list" style = "line-height:20px;">
           <li class = "cart-item" style = "padding-bottom:0">
               $<%=order.price%> paid for with card ending in <%=cardNumber%> 
           </li>
           <li>
             Order placed at <%= order.time %>
           </li>
+<<<<<<< HEAD
           <li>
             Pick up order at: <%=new Date(order.time .getTime() + order.timetopickup*60000);%>
           </li>
+=======
+          <!-- <li>
+            Pick up order at: <%=new Date(order.time .getTime() + 20*60000);%>
+          </li> -->
+>>>>>>> 077435337bac33c239f579080f1dbacec762003c
           <div class="text-right" style="margin-right: 2.5%;">
             <form method="POST" action="/order/print">
               <input type="hidden" name="orderId" value="<%=order.id%>" />
@@ -61,8 +55,13 @@
               <input type="hidden" name="cardNumber" value="<%=cardNumber%>" />
               <input type="hidden" name="itemList" value="<% menuItems.forEach(function(menuItem) { %> <%= menuItem.count %>x <%=menuItem.name%> <% }); %>" />
               <input type="hidden" name="orderTime" value="<%= order.time %>" />
+<<<<<<< HEAD
               <input type="hidden" name="pickupTime" value="<%=new Date(order.time .getTime() + order.timetopickup*60000);%>" />
               <input type="submit" id="orderButton" class="main-button" value="Print Receipt" />
+=======
+              <input type="hidden" name="pickupTime" value="<%=new Date(order.time .getTime() + 20*60000);%>" />
+              <input type="submit" id="orderButton" class="main-button" value="Print Receipt" style = "width:auto"/>
+>>>>>>> 077435337bac33c239f579080f1dbacec762003c
             </form>
           </div>
         </ul>

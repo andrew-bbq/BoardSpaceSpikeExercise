@@ -10,19 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
     <link rel='stylesheet' href="/stylesheets/navbar.css" />
   </head>
-
-  <style>
-    ul {
-      padding-left: 2%;
-      width: 96%;
-    }
-    ul li {
-      padding: 12px;
-      font-size: 18px;
-      display: block;
-      position: relative;
-    }
-</style>
 <body>
   <!-- Topbar -->
   <%- include('partials/topbar', {page: "Cart"});%>
@@ -44,7 +31,7 @@
             </div>
         </div>
         <h1 class="sub-header">Payment and Tracking</h1>
-        <ul style = "line-height:20px;">
+        <ul class = "list" style = "line-height:20px;">
           <li>
               $<%=order.price%> paid for with card ending in: <%= card? card.cardNumber%10000 : "deleted card" %>
           </li>

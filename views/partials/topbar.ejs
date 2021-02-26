@@ -5,7 +5,7 @@
   <div class="row mr-0">
     <h1 class="text-center logo">Badger Bytes</h1>
   </div>
-  <div class = "login-button">
+  <div class="login-button">
     <div class="text-center">
       <!-- Button HTML (to Trigger Modal) -->
       <a href="#myModal" data-toggle="modal">
@@ -38,7 +38,8 @@
                 <button type="submit" class="btn btn-primary logout-button">Log in</button>
               </form>
               <div>
-                <a href="/users/createuser"><button class="btn btn-primary signup-button text-center">Sign up</button></a>
+                <a href="/users/createuser"><button class="btn btn-primary signup-button text-center">Sign
+                    up</button></a>
               </div>
             </div>
           </div>
@@ -56,9 +57,13 @@
               <div class="modal-body">
                 <form action="/" method="POST">
                   <div>
-                    <button type="button" class="btn btn-primary signup-button text-center"><a style="color:white"
-                        href="/users/orders">Orders</a></button>
-                    <input name="action" type="submit" class="btn btn-primary logout-button text-center" value="Logout" />
+                    <%if(currentUser) { %>
+                      <a href="/users/customerAccount" class="btn btn-primary signup-button text-centern">Account</a>
+                      <% } %>
+                        <button type="button" class="btn btn-primary signup-button text-center"><a style="color:white"
+                            href="/users/orders">Orders</a></button>
+                        <input name="action" type="submit" class="btn btn-primary logout-button text-center"
+                          value="Logout" />
                   </div>
                 </form>
               </div>
@@ -67,9 +72,6 @@
         </div>
         <% } %>
   </div>
-    
-
-
   <!-- Navbar -->
   <%- include('partials/navbar', {active: page});%>
 </div>

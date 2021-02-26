@@ -27,7 +27,7 @@
       </div>
       <% messages.forEach(function(message) { %>
         <div class="row" style="line-height:3em;">
-          <% if(message.sentByUser) { %>
+          <% if(!message.sentByUser) { %>
             <div class="col-6 offset-6 text-right">
             <p class="user-text-message text-message float-right" title="<%=new Date(message.time).toString()%>">
                 <%= message.message %>
@@ -42,9 +42,10 @@
               <% } %>
         </div>
         <% }); %>
-          <form action="/messages/messages" method="POST">
+          <form action="/messages/staffmessages" method="POST">
             <div class="row">
               <div class="col-md-9">
+                <input type="hidden" name="userId" value="<%=userId%>" />
                 <input name="message" class="form-control" autofocus="autofocus" />
               </div>
               <div class="col-md-3 text-center">
