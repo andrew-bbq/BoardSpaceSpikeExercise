@@ -33,6 +33,11 @@ const Order = new Schema({
     type: Boolean,
     required: true
   },
+  timetopickup: {
+    type: Number,
+    required: true,
+    default: 15
+  },
   car: {
     type: String
   }

@@ -123,6 +123,7 @@ router.post('/completepayment', function (req, res, next) {
     const cardId = req.body.card;
     const userId = req.session.user._id;
     const pickup = req.body.pickup == 1;
+    const timetopickup = req.body.timetopickup;
     const car = req.body.car ? req.body.car : "";
     let menuItems = {};
     for (let itemId in req.session.cart) {
@@ -133,6 +134,7 @@ router.post('/completepayment', function (req, res, next) {
         cardId: cardId,
         price: price,
         pickup: pickup,
+        timetopickup: timetopickup,
         car: car,
         menuItems: menuItems,
         status: Order.schema.path('status').enumValues[0],

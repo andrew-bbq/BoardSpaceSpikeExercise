@@ -71,12 +71,22 @@
                                 <input placeholder="Car description" class="form-control"
                                 oninput="document.getElementById('hiddencar').value = this.value" />
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                <label for="timeSelect">Time to Pickup:</label>
+                                <select  class="form-control" id="timeSelect" name="timeSelect"
+                                    onchange="document.getElementById('hiddentime').value = this.value;">
+                                    <option value="15">15 minutes</option>
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                </select>
+                            </div>
                         </div>
                     </li>
                     <div class="text-right" style="margin-right: 2.5%;">
                         <form action="/order/completepayment" method="POST">
                             <input type="hidden" id="hiddencar" name="car" value="" />
                             <input type="hidden" id="hiddenpickup" name="pickup" value="1" />
+                            <input type="hidden" id="hiddentime" name="timetopickup" value="15" />
                             <input type="hidden" name="price" value="<%=(subtotal + salesTax + tip).toFixed(2)%>" />
                             <input type="hidden" name="card" value="<%=card.id%>" />
                             <input type="submit" id="orderButton" class="main-button" value="Confirm" />
