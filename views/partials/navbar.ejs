@@ -58,7 +58,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div class="dropdown-content">
-              <a href="/staff/orderlist" <% if(active=='orderlist' ){ %>
+              <a href="/staff/orderlist" style="min-width: 100px" <% if(active=='orderlist' ){ %>
                 class="nav-item nav-link nav-button disabled"
                 <% } else{ %>
                   class="nav-item nav-link nav-button"
@@ -68,7 +68,7 @@
               </a>
             <!-- If admin show Edit Menu -->
             <%if(currentUser.role=='admin' ) { %>
-              <a href="/menu/editmenu" 
+              <a href="/menu/editmenu" style="min-width: 100px"
               <% if(active=='EditMenu' ){ %>
                 class="nav-item nav-link nav-button disabled"
               <% } 
@@ -81,7 +81,7 @@
             <% } %>
               <!-- If admin show User List -->
               <%if(currentUser.role=='admin' ) { %>
-                <a href="/users/viewusers" 
+                <a href="/users/viewusers" style="min-width: 100px"
                 <% if(active=='ViewUsers' ){ %>
                     class="nav-item nav-link nav-button disabled"
                 <% } 
@@ -94,7 +94,7 @@
 
               <!-- If admin show Usage Report -->
               <%if(currentUser.role=='admin' ) { %>
-                <a href="/staff/usagereport" 
+                <a href="/staff/usagereport" style="min-width: 130px"
                 <% if(active=='usagereport' ){ %>
                   class="nav-item nav-link nav-button disabled"
                 <% } else{ %>
