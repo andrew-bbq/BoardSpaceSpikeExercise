@@ -5,14 +5,15 @@ const Messages = mongoose.model('Messages');
 
 // admin access
 router.post('/staffmessages', function(req, res, next) {
+    if(req.session.user.role != 'admin' && req.session.user.role != 'staff') {
+        res.redirect('/');
+    }
     Messages.count({userId: req.body.userId}, function(err, count) {
         if(count == 0) {
-            if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
-                let MessageData = {
-                    userId: req.body.userId,
-                    messages: [{sentByUser: false, message: req.body.message, time: Date.now()}]
-                };
-            }
+            let MessageData = {
+                userId: req.body.userId,
+                messages: [{sentByUser: false, message: req.body.message, time: Date.now()}]
+            };
             Messages.create(
                 MessageData,
                 function(err, messages) {
@@ -23,13 +24,11 @@ router.post('/staffmessages', function(req, res, next) {
                 });
         }
         else {
-            if((req.session.user.role == 'admin' || req.session.user.role == 'staff')) {
-                Messages.findOneAndUpdate({userId: req.body.userId},
-                {$push: {messages: {sentByUser: false, message: req.body.message, time: Date.now()}}},
-                function (err, messages) {
-                    res.redirect('/messages/staffmessages?userId='+ req.body.userId);
-                });
-            }
+            Messages.findOneAndUpdate({userId: req.body.userId},
+            {$push: {messages: {sentByUser: false, message: req.body.message, time: Date.now()}}},
+            function (err, messages) {
+                res.redirect('/messages/staffmessages?userId='+ req.body.userId);
+            });
         }
     });
 });
