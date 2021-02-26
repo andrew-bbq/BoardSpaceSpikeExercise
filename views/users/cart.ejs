@@ -13,33 +13,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster|Nunito|Bebas Neue|Comfortaa">
   <link rel='stylesheet' href="/stylesheets/navbar.css" />
 
-  <style>
-    ul {
-      padding-left: 2%;
-      width: 96%;
-    }
-
-    ul li {
-
-      border-bottom: 1px solid #000;
-      padding: 12px;
-      font-size: 18px;
-      display: block;
-      position: relative;
-    }
-
-    .priceDisplay {
-      width: 100%;
-    }
-
-    .cartDiv {
-      border-radius: 20px;
-      border: 2px solid #000;
-      background-color: #dfd;
-      padding: 0;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -47,7 +20,7 @@
   <%- include('partials/topbar', {page: "Cart" });%>
     <div class="box">
       <h1 class="sub-header">Cart</h1>
-      <ul id="cartList">
+      <ul class = "list" id="cartList">
         <% let subtotal=0 %>
           <% for (let itemId in cart) { console.log(itemId); %>
             <li>
@@ -65,8 +38,9 @@
             </li>
             <% } %>
       </ul>
+      <div style = "border-bottom: 1px solid #000;"></div>
       <% let salesTax=subtotal * 0.05; let tip=subtotal*0.15; %>
-        <ul>
+        <ul class = "list">
           <li class="priceDisplay cart-item" id="subTotalDisplay">
             <span style="position: relative; left: 3%;">Subtotal:</span>
             <span style = "float:right"> $<%= (subtotal).toFixed(2); %></span>
