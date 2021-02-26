@@ -39,15 +39,9 @@
           <li>
             Order placed at <%= order.time %>
           </li>
-<<<<<<< HEAD
           <li>
             Pick up order at: <%=new Date(order.time .getTime() + order.timetopickup*60000);%>
           </li>
-=======
-          <!-- <li>
-            Pick up order at: <%=new Date(order.time .getTime() + 20*60000);%>
-          </li> -->
->>>>>>> 077435337bac33c239f579080f1dbacec762003c
           <div class="text-right" style="margin-right: 2.5%;">
             <form method="POST" action="/order/print">
               <input type="hidden" name="orderId" value="<%=order.id%>" />
@@ -55,13 +49,8 @@
               <input type="hidden" name="cardNumber" value="<%=cardNumber%>" />
               <input type="hidden" name="itemList" value="<% menuItems.forEach(function(menuItem) { %> <%= menuItem.count %>x <%=menuItem.name%> <% }); %>" />
               <input type="hidden" name="orderTime" value="<%= order.time %>" />
-<<<<<<< HEAD
               <input type="hidden" name="pickupTime" value="<%=new Date(order.time .getTime() + order.timetopickup*60000);%>" />
               <input type="submit" id="orderButton" class="main-button" value="Print Receipt" />
-=======
-              <input type="hidden" name="pickupTime" value="<%=new Date(order.time .getTime() + 20*60000);%>" />
-              <input type="submit" id="orderButton" class="main-button" value="Print Receipt" style = "width:auto"/>
->>>>>>> 077435337bac33c239f579080f1dbacec762003c
             </form>
           </div>
         </ul>
