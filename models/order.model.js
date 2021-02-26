@@ -21,6 +21,10 @@ const Order = new Schema({
     enum: ['preparing', 'delivering', 'complete'],
     required: true
   },
+  priority: {
+    type: Number,
+    default: 1
+  },
   time: {
     type: Date,
     required: true
