@@ -15,69 +15,93 @@
 
 <body>
   <!-- Topbar -->
-  <%- include('partials/topbar', {page: "usagereport"});%>
-  <div class="container" style="z-index: 0">
-    <div class="row pt-2 mb-4">
-      <div class="col-sm-12">
-        <h1 class="header2 text-center">Usage Report</h1>
+  <%- include('partials/topbar', {page: "usagereport" });%>
+
+    <div class="container" style="z-index: 0">
+      <div class="row pt-2 mb-4">
+        <div class="col-sm-12">
+          <h1 class="header2 text-center">Usage Report</h1>
+        </div>
+      </div>
+      <div class="box row mb-3 mt-2" style="line-height: 2em;">
+        <div class="col-sm-6">
+          <form method="POST" action="/staff/getUsageReport">
+            <div class="row">
+              <div class="col-sm-6">
+                <label>Start date(on or after this date):</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="date" name="queryStartDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label>End date(before this date):</label>
+              </div>
+              <div class="col-sm-6">
+                <input type="date" name="queryEndDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label>Menu Item:</label>
+              </div>
+              <div class="col-sm-6">
+                <select name="queryItem">
+                  <% menuItems.forEach(function(menuItem) { %>
+                    <option value="<%=menuItem.name%>">
+                      <%=menuItem.name%>
+                    </option>
+                    <% }); %>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 pull-right">
+                <input type="submit" id="queryButton" class="main-button mb-2" value="Get Report" />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          Number of orders in time range: <%=orderCount%> <br />
+            Number of orders with selected item: <%=itemOrderCount%> <br />
+              Number of selected items: <%=itemCount%> <br />
+                Total amount paid for item: $<%=itemTotalPaid%> <br />
+        </div>
+      </div>
+      <div class="col-lg-12 box orderlist" style="padding-left: 1em; padding-right: 1em; line-height: 1em;">
+        <table style="width: 100%">
+          <% orders.forEach(function(order){ %>
+            <tr>
+              <td>
+                <% let numItems=0; for (let menuId in order.menuItems) { numItems +=order.menuItems[menuId]; } %>
+                  <%= numItems %> items ordered for $<%= order.price %>
+
+              </td>
+              <td class="text-center">
+                Status: <%= order.status %>
+              </td>
+              <td class="text-center">
+                <button class="main-button col-2 mt-1 mb-1" type="button"><a class="link"
+                    href="/staff/vieworder?order=<%=order.id%>">View</a></button>
+                <!-- <a href="/staff/vieworder?order=<%=order.id%>">View Order</a> -->
+              </td>
+              <td class="text-right">
+                <form action="/staff/orderlist" method="POST">
+                  <input type="hidden" name="orderId" value="<%=order.id%>" />
+                  Status: <select name="status" onchange="this.form.submit()">
+                    <option value="preparing" <%=(order.status=='preparing' )? 'selected' : '' %>>Preparing</option>
+                    <option value="delivering" <%=(order.status=='delivering' )? 'selected' : '' %>>Delivering</option>
+                    <option value="complete" <%=(order.status=='complete' )? 'selected' : '' %>>Complete</option>
+                  </select>
+                </form>
+              </td>
+            </tr>
+            <% }); %>
+        </table>
       </div>
     </div>
-    <div>
-      <form method="POST" action="/staff/getUsageReport">
-        <label>Start date(on or after this date):</label>
-        <input type="date" name="queryStartDate">
-        <label>End date(before this date):</label>
-        <input type="date" name="queryEndDate">
-        <select name="queryItem">
-          <% menuItems.forEach(function(menuItem) { %>
-            <option value="<%=menuItem.name%>"><%=menuItem.name%></option>
-          <% }); %>
-        </select>
-        <input type="submit" id="queryButton" class="main-button" value="Get Report" />
-      </form>
-    </div>
-    <div>
-      Number of orders in time range: <%=orderCount%> <br/>
-      Number of orders with selected item: <%=itemOrderCount%> <br/>
-      Number of selected items: <%=itemCount%> <br/>
-      Total amount paid for item: $<%=itemTotalPaid%> <br/>
-    </div>
-    <div class="col-lg-12 box orderlist" style="padding-left: 1em; padding-right: 1em; line-height: 1em;">
-      <table style="width: 100%">
-        <% orders.forEach(function(order){  %>
-        <tr>
-          <td>
-            <%
-              let numItems = 0;
-              for (let menuId in order.menuItems) {
-                  numItems += order.menuItems[menuId];
-              }
-            %>
-            <%= numItems %> items ordered for $<%= order.price %>
-
-          </td>
-          <td class="text-center">
-            Status: <%= order.status %>
-          </td>
-          <td class="text-center">
-            <button class="main-button col-2 mt-1 mb-1" type="button"><a class="link" href="/staff/vieworder?order=<%=order.id%>">View</a></button>
-            <!-- <a href="/staff/vieworder?order=<%=order.id%>">View Order</a> -->
-          </td>
-          <td class="text-right">
-            <form action="/staff/orderlist" method="POST">
-              <input type="hidden" name="orderId" value="<%=order.id%>" />
-              Status: <select name="status" onchange="this.form.submit()">
-                  <option value="preparing" <%= (order.status == 'preparing')? 'selected' : ''%>>Preparing</option>
-                  <option value="delivering" <%= (order.status == 'delivering')? 'selected' : ''%>>Delivering</option>
-                  <option value="complete" <%= (order.status == 'complete')? 'selected' : ''%>>Complete</option>
-              </select>
-            </form>
-          </td>
-        </tr>
-        <% }); %>
-      </table>
-    </div>
-  </div>
 </body>
 <script src="/javascripts/global.js"></script>
 
