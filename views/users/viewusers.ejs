@@ -19,26 +19,32 @@
         <div class="box container mt-3 justify-content-center" style="line-height: 2em;">
             <div class="row">
                 <div class='col-lg-12'>
-                    <div class="row tableHeader" style = "font-size:1.5em">
-                        <div class="col-sm-5">
-                            Username
+                    <div class="row tableHeader">
+                        <div >
+                           Contact
                         </div>
-                        <div class="col-sm-5">
+                        <div>
+                           Username
+                        </div>
+                        <div >
                             Phone
                         </div>
-                        <div class="col-sm-2">
+                        <div>
                             Role
                         </div>
                     </div>
                     <% users.forEach(user=> { %>
-                        <div class="row">
-                            <div class="col-sm-5">
+                        <div class="row" style = "display: flex; flex-wrap: wrap; justify-content:space-around">
+                            <div >
+                                <a href="/messages/staffmessages?userId=<%=user._id%>" class="main-button mb-2">Contact User</a>
+                            </div>
+                            <div>
                                 <%=user.username%>
                             </div>
-                            <div class="col-sm-5">
+                            <div >
                                 <%=user.phone%>
                             </div>
-                            <div class="col-sm-2">
+                            <div>
                                 <form action="/users/viewusers" method="POST">
                                     <input name="userId" value="<%=user._id%>" type="hidden" />
                                     <select name="role" class='form-control' onchange="this.form.submit()">
@@ -51,6 +57,8 @@
                                     </select>
                                 </form>
                             </div>
+                            
+                            
                         </div>
                         <div class = "divider" style = "border-bottom: 1px solid #000; margin-top:5px"></div>
                         <% }); %>                   

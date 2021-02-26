@@ -497,6 +497,9 @@ table {
   background-color: lightgrey;
 }
 
+.tableHeader {
+  display: flex; flex-wrap: wrap; justify-content:space-around; font-size:1.5em;
+}
 @media (max-width: 580px) {
   .tableHeader {
     display:none;

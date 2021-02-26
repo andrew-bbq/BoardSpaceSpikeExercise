@@ -72,10 +72,11 @@
             <li>
               Order placed at <%= order.time %>
             </li>
-            <li><a href="/messages/staffmessages?userId=<%=order.userId%>" class="btn btn-primary">Contact User</a></li>
+            <li></li>
           </ul>
           <div class="text-right" style="margin-right: 2.5%;">
-            <form method="POST" action="/staff/printViewOrder">
+            <a href="/messages/staffmessages?userId=<%=order.userId%>" class="main-button">Contact User</a>
+            <form method="POST" action="/staff/printViewOrder" class = "mt-2">
               <input type="hidden" name="orderId" value="<%=order.id%>" />
               <input type="hidden" name="orderPrice" value="<%=order.price%>" />
               <input type="hidden" name="cardNumber" value="<%=(card.cardNumber%10000)%>" />
