@@ -197,8 +197,10 @@ router.post('/printViewOrder', function (req, res, next) {
     // Create a document
     const doc = new PDFDocument;
 
+    let file = __dirname + '/../Receipts/ReceiptForOrder'+req.body.orderId+'.pdf';
     // pipe document to receipt pdf filestream
-    doc.pipe(fs.createWriteStream('./Receipts/ReceiptForOrder'+req.body.orderId+'.pdf'));
+    let writeStream = fs.createWriteStream(file)
+    doc.pipe(writeStream);
     
     doc.fontSize(30);
     doc.text("Thank you for ordering with BadgerBytes!");
@@ -215,7 +217,19 @@ router.post('/printViewOrder', function (req, res, next) {
     doc.text("Pickup Time: " + req.body.pickupTime);
 
     doc.end();
-    return res.redirect(url.format({ pathname: "/staff/vieworder", query: { "order": req.body.orderId } }))
+    writeStream.on('finish', function () {
+        res.download(file, "Receipt-"+req.body.orderId+".pdf", (err) => {
+            if(err) {
+                next(err);
+            }
+            fs.unlink(file, (err) => {
+                if (err) {
+                    next(err);
+                }
+                return res.redirect(url.format({ pathname: "/order/trackorder", query: { "order": req.body.orderId } }));
+            });
+        });
+    });
 });
 
 module.exports = router;
