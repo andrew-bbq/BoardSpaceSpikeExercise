@@ -45,8 +45,7 @@ router.post('/addmenuitem', upload.single('image'), function(req, res, next) {
             // delete file
             fs.unlink(filePath, (err) => {
                 if(err) {
-                    console.log(err);
-                    return;
+                    return next(err)
                 }
                 res.redirect("/menu/editmenu");
             });
@@ -74,10 +73,8 @@ router.post('/editmenu', function(req, res, next) {
     if(req.body.action == "Delete") {
         MenuItem.deleteOne({_id: req.body.toEdit}, function(err) {
             if (err) {
-                console.log(err);
-                return;
+                return next(err);
             }
-            return res.redirect("/menu/editmenu");
         });
     }
     let inStock = (req.body.instock == 1);
